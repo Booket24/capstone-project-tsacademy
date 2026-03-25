@@ -48,3 +48,12 @@ module "iam" {
   project_name = var.project_name
   role_name = var.role_name
 }
+
+module "billing_alert" {
+  source            = "../modules/billing"
+  
+  budget_name       = var.budget_name
+  limit_amount      = var.limit_amount
+  threshold         = var.threshold
+  subscriber_emails = var.subscriber_emails
+}

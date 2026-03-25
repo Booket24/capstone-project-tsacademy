@@ -62,3 +62,27 @@ variable "role_name" {
   description = "Name of the IAM role"
   default = "taskapp-role"
 }
+
+variable "budget_name" {
+  description = "The name of the budget"
+  type        = string
+  default     = "production_budget"
+}
+
+variable "limit_amount" {
+  description = "The maximum spend limit for the month"
+  type        = string
+  default     = "50"
+}
+
+variable "subscriber_emails" {
+  description = "List of email addresses to receive notifications"
+  type        = list(string)
+  default   = ["msilas007@gmail.com"]
+}
+
+variable "threshold" {
+  description = "The percentage of the budget to trigger a notification"
+  type        = number
+  default     = 80
+}
