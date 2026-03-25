@@ -86,3 +86,15 @@ variable "threshold" {
   type        = number
   default     = 80
 }
+
+variable "bucket_name" {
+  description = "S3 bucket for backend"
+  type = string
+  default = "taskapp-hunter-terraform-state"
+}
+
+variable "table_name" {
+  description = "DynamoDB for backend"
+  type = string
+  default = "taskapp-hunter-terraform-locks"
+}

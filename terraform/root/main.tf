@@ -57,3 +57,12 @@ module "billing_alert" {
   threshold         = var.threshold
   subscriber_emails = var.subscriber_emails
 }
+
+module "backend_storage" {
+  source = "../modules/storage"
+
+project_name = var.project_name
+aws_region = var.aws_region
+  bucket_name = var.bucket_name
+  table_name = var.table_name
+}
