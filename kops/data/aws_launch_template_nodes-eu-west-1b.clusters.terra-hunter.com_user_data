@@ -1,0 +1,155 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+NODEUP_URL_AMD64=https://artifacts.k8s.io/binaries/kops/1.35.0/linux/amd64/nodeup,https://github.com/kubernetes/kops/releases/download/v1.35.0/nodeup-linux-amd64
+NODEUP_HASH_AMD64=3ebac85e826cad81a27968c835be6dbb396834c0e144d51e567246c42733b59b
+NODEUP_URL_ARM64=https://artifacts.k8s.io/binaries/kops/1.35.0/linux/arm64/nodeup,https://github.com/kubernetes/kops/releases/download/v1.35.0/nodeup-linux-arm64
+NODEUP_HASH_ARM64=1a321707f2d707a7d6528cba1856e98eb7cb9feba9cbc15de1f2add22e043505
+
+export AWS_REGION=eu-west-1
+
+
+
+
+sysctl -w net.core.rmem_max=16777216 || true
+sysctl -w net.core.wmem_max=16777216 || true
+sysctl -w net.ipv4.tcp_rmem='4096 87380 16777216' || true
+sysctl -w net.ipv4.tcp_wmem='4096 87380 16777216' || true
+
+
+function ensure-install-dir() {
+  INSTALL_DIR="/opt/kops"
+  # On ContainerOS, we install under /var/lib/toolbox; /opt is ro and noexec
+  if [[ -d /var/lib/toolbox ]]; then
+    INSTALL_DIR="/var/lib/toolbox/kops"
+  fi
+  mkdir -p ${INSTALL_DIR}/bin
+  mkdir -p ${INSTALL_DIR}/conf
+  cd ${INSTALL_DIR}
+}
+
+# Retry a download until we get it. args: name, sha, urls
+download-or-bust() {
+  echo "== Downloading $1 with hash $2 from $3 =="
+  local -r file="$1"
+  local -r hash="$2"
+  local -a urls
+  IFS=, read -r -a urls <<< "$3"
+
+  if [[ -f "${file}" ]]; then
+    if ! validate-hash "${file}" "${hash}"; then
+      rm -f "${file}"
+    else
+      return 0
+    fi
+  fi
+
+  while true; do
+    for url in "${urls[@]}"; do
+      commands=(
+        "curl -f --compressed -Lo ${file} --connect-timeout 20 --retry 6 --retry-delay 10"
+        "wget --compression=auto -O ${file} --connect-timeout=20 --tries=6 --wait=10"
+        "curl -f -Lo ${file} --connect-timeout 20 --retry 6 --retry-delay 10"
+        "wget -O ${file} --connect-timeout=20 --tries=6 --wait=10"
+      )
+      for cmd in "${commands[@]}"; do
+        echo "== Downloading ${url} using ${cmd} =="
+        if ! (${cmd} "${url}"); then
+          echo "== Failed to download ${url} using ${cmd} =="
+          continue
+        fi
+        if ! validate-hash "${file}" "${hash}"; then
+          echo "== Failed to validate hash for ${url} =="
+          rm -f "${file}"
+        else
+          echo "== Downloaded ${url} with hash ${hash} =="
+          return 0
+        fi
+      done
+    done
+
+    echo "== All downloads failed; sleeping before retrying =="
+    sleep 60
+  done
+}
+
+validate-hash() {
+  local -r file="$1"
+  local -r expected="$2"
+  local actual
+
+  actual=$(sha256sum "${file}" | awk '{ print $1 }') || true
+  if [[ "${actual}" != "${expected}" ]]; then
+    echo "== File ${file} is corrupted; hash ${actual} doesn't match expected ${expected} =="
+    return 1
+  fi
+}
+
+function download-release() {
+  case "$(uname -m)" in
+  x86_64*|i?86_64*|amd64*)
+    NODEUP_URL="${NODEUP_URL_AMD64}"
+    NODEUP_HASH="${NODEUP_HASH_AMD64}"
+    ;;
+  aarch64*|arm64*)
+    NODEUP_URL="${NODEUP_URL_ARM64}"
+    NODEUP_HASH="${NODEUP_HASH_ARM64}"
+    ;;
+  *)
+    echo "Unsupported host arch: $(uname -m)" >&2
+    exit 1
+    ;;
+  esac
+
+  cd ${INSTALL_DIR}/bin
+  download-or-bust nodeup "${NODEUP_HASH}" "${NODEUP_URL}"
+
+  chmod +x nodeup
+
+  echo "== Running nodeup =="
+  # We can't run in the foreground because of https://github.com/docker/docker/issues/23793
+  ( cd ${INSTALL_DIR}/bin; ./nodeup --install-systemd-unit --conf=${INSTALL_DIR}/conf/kube_env.yaml --v=8  )
+}
+
+####################################################################################
+
+/bin/systemd-machine-id-setup || echo "== Failed to initialize the machine ID; ensure machine-id configured =="
+
+echo "== nodeup node config starting =="
+ensure-install-dir
+
+cat > conf/kube_env.yaml << '__EOF_KUBE_ENV'
+CloudProvider: aws
+ClusterName: clusters.terra-hunter.com
+ConfigServer:
+  CACertificates: |
+    -----BEGIN CERTIFICATE-----
+    MIIC+DCCAeCgAwIBAgIMGKBte3zTT+wqJA/IMA0GCSqGSIb3DQEBCwUAMBgxFjAU
+    BgNVBAMTDWt1YmVybmV0ZXMtY2EwHhcNMjYwMzI0MTUyMzUwWhcNMzYwMzIzMTUy
+    MzUwWjAYMRYwFAYDVQQDEw1rdWJlcm5ldGVzLWNhMIIBIjANBgkqhkiG9w0BAQEF
+    AAOCAQ8AMIIBCgKCAQEAr3ssQr2YNVarN+HlWDj22/iWFgWzSvGmH22x5MX5L0Kt
+    AV7sjO3K9zg8RVtPieZmqu7qskyQmmrs/7mAUp0Tw8qDZ205SmoeAzUd81+u99uH
+    roJ6BfCSzE+LL1ysU4hI/No/2DoWu+dXFwgr2ZJvnw0cf2ImEuUvbfmNVZMHnWwT
+    8eL89GFj5Ut0CJYCC2utSZH4n44ibrNIFaVC/ZA3nezmEMYAA5grg/WO+ZNO0ldn
+    47Wo20PxLUkWJ434ccKX5rqavkeZHM3Vb/Utge9Wu21xpcE+gNkWEcM62m+9V2uF
+    gFK0sr9tMgdze/lmm1obs6U5tfw0ABZXgxi3V/X/JwIDAQABo0IwQDAOBgNVHQ8B
+    Af8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUVweclBp6EXOEzDvt
+    Cd0ebyfGxW0wDQYJKoZIhvcNAQELBQADggEBAJrhwzEns0vb8kJt3l5T0ts3TAPY
+    pagk4lEkhC1DtrJwjHjhURpy34w30QqGS4ePYHd3Q52yR7kq5v6VpN0Lhainh4Tz
+    //LeiKW+bSAhPZwCJ6noIkXnmF9bLorIHuOl+4SQbEcDESQoymx8QTPjeK9RuiHc
+    uRf/rkcnC1l3sj2axpu6/t7N/3S7Cvl+LmmlXKDroB/xt1W1guFCyzOs2/58uj6x
+    KdB+tUHFtxLmLTt5x+OC0jjHflZTwBLp1nGAaJWFNPLrsp4WBUCteHvIZsVT5DEF
+    MOmM/nY6adwo5APFAFClhc8DfmkikKA3xPL6ycQnPhCNq1VyXoP7yqaSNSw=
+    -----END CERTIFICATE-----
+  servers:
+  - https://kops-controller.internal.clusters.terra-hunter.com:3988/
+InstanceGroupName: nodes-eu-west-1b
+InstanceGroupRole: Node
+NodeupConfigHash: nlBjWFDrpD956aOo8Y4tAYpfI3Cv8twtpnNMk+hGj7c=
+
+__EOF_KUBE_ENV
+
+download-release
+echo "== nodeup node config done =="

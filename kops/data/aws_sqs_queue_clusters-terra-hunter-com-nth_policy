@@ -1,0 +1,16 @@
+{
+  "Statement": [
+    {
+      "Action": "sqs:SendMessage",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "events.amazonaws.com",
+          "sqs.amazonaws.com"
+        ]
+      },
+      "Resource": "arn:aws:sqs:eu-west-1:541645813504:clusters-terra-hunter-com-nth"
+    }
+  ],
+  "Version": "2012-10-17"
+}

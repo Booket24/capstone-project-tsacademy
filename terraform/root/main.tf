@@ -16,20 +16,6 @@ module "vpc" {
   private_subnet_cidrs = var.private_subnet_cidrs
 }
 
-module "EC2" {
-  source = "../modules/ec2"
-
-  project_name = var.project_name
-  frontend_subnet_id = module.vpc.private_subnet_ids[0]
-  backend_subnet_id = module.vpc.private_subnet_ids[0]
-  database_subnet_id = module.vpc.private_subnet_ids[0]
-  frontend_sg_id = module.vpc.frontend_sg_id
-  backend_sg_id =  module.vpc.backend_sg_id
-  database_sg_id = module.vpc.database_sg_id
-  ssh_key_name = var.ssh_key_name
-  iam_instance_profile  = module.iam.instance_profile_name
-}
-
 module "RDS" {
   source = "../modules/rds"
 

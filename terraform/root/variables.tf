@@ -36,7 +36,8 @@ variable "private_subnet_cidrs" {
 
 variable "ssh_key_name" {
   description = "SSH key pair name for EC2 instances "
-  type = string  
+  type = string
+  default = "hunter" 
 }
 
 variable "db_name" {
@@ -54,6 +55,7 @@ variable "db_username" {
 variable "db_password" {
   description = "Database master password"
   type        = string
+  default = "postgres-hunter"
   sensitive   = true
 }
 

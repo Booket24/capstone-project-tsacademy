@@ -13,17 +13,17 @@ output "db_endpoint" {
     value = module.RDS.db_endpoint
 }
 
-output "frontend_private_ip" {
-  description = "Public IP address of the frontend EC2 instance"
-  value       = module.EC2.frontend_private_ip
+output "vpc_public_subnets" {
+  description = "Public subnets returned from vpc"
+  value = module.vpc.public_subnet_ids
 }
 
-output "backend_private_ip" {
-  description = "Private IP address of the backend EC2 instance"
-  value       = module.EC2.backend_private_ip
+output "vpc_private_subnets" {
+  description = "Private subnets returned from vpc"
+  value = module.vpc.private_subnet_ids
 }
 
-output "database_private_ip" {
-  description = "Public IP address of the backend EC2 instance"
-  value       = module.EC2.database_private_ip
+output "s3_state_store" {
+  description = "S3 bucket for state locking and kops"
+  value = module.backend_storage.state_bucket_name
 }

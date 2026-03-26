@@ -1,0 +1,255 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  creationTimestamp: "2026-03-26T15:22:45Z"
+  name: clusters.terra-hunter.com
+spec:
+  api:
+    loadBalancer:
+      class: Network
+      type: Public
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudConfig:
+    awsEBSCSIDriver:
+      version: v1.47.0
+    manageStorageClasses: true
+  cloudControllerManager:
+    allocateNodeCIDRs: true
+    clusterCIDR: 10.0.128.0/17
+    clusterName: clusters.terra-hunter.com
+    configureCloudRoutes: false
+    image: registry.k8s.io/provider-aws/cloud-controller-manager:v1.34.0
+    leaderElection:
+      leaderElect: true
+  cloudProvider: aws
+  clusterDNSDomain: cluster.local
+  configBase: s3://taskapp-hunter-terraform-state/clusters.terra-hunter.com
+  containerd:
+    logLevel: info
+    runc:
+      version: 1.3.4
+    sandboxImage: registry.k8s.io/pause:3.10.1@sha256:278fb9dbcca9518083ad1e11276933a2e96f23de604a3a08cc3c80002767d24c
+    version: 2.1.6
+  dnsZone: clusters.terra-hunter.com
+  etcdClusters:
+  - backups:
+      backupStore: s3://taskapp-hunter-terraform-state/clusters.terra-hunter.com/backups/etcd/main
+    cpuRequest: 200m
+    etcdMembers:
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1a
+      name: a
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1b
+      name: b
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1c
+      name: c
+    manager:
+      backupRetentionDays: 90
+    memoryRequest: 100Mi
+    name: main
+    version: 3.6.6
+  - backups:
+      backupStore: s3://taskapp-hunter-terraform-state/clusters.terra-hunter.com/backups/etcd/events
+    cpuRequest: 100m
+    etcdMembers:
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1a
+      name: a
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1b
+      name: b
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1c
+      name: c
+    manager:
+      backupRetentionDays: 90
+    memoryRequest: 100Mi
+    name: events
+    version: 3.6.6
+  externalDns:
+    provider: dns-controller
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  keyStore: s3://taskapp-hunter-terraform-state/clusters.terra-hunter.com/pki
+  kubeAPIServer:
+    allowPrivileged: true
+    anonymousAuth: false
+    apiAudiences:
+    - kubernetes.svc.default
+    apiServerCount: 3
+    authorizationMode: Node,RBAC
+    bindAddress: 0.0.0.0
+    enableAdmissionPlugins:
+    - DefaultStorageClass
+    - DefaultTolerationSeconds
+    - LimitRanger
+    - MutatingAdmissionWebhook
+    - NamespaceLifecycle
+    - NodeRestriction
+    - ResourceQuota
+    - RuntimeClass
+    - ServiceAccount
+    - ValidatingAdmissionPolicy
+    - ValidatingAdmissionWebhook
+    etcdServers:
+    - https://127.0.0.1:4001
+    etcdServersOverrides:
+    - /events#https://127.0.0.1:4002
+    image: registry.k8s.io/kube-apiserver:v1.35.2@sha256:68cdc586f13b13edb7aa30a18155be530136a39cfd5ef8672aad8ccc98f0a7f7
+    kubeletPreferredAddressTypes:
+    - InternalIP
+    - Hostname
+    - ExternalIP
+    logLevel: 2
+    requestheaderAllowedNames:
+    - aggregator
+    requestheaderExtraHeaderPrefixes:
+    - X-Remote-Extra-
+    requestheaderGroupHeaders:
+    - X-Remote-Group
+    requestheaderUsernameHeaders:
+    - X-Remote-User
+    securePort: 443
+    serviceAccountIssuer: https://api.internal.clusters.terra-hunter.com
+    serviceAccountJWKSURI: https://api.internal.clusters.terra-hunter.com/openid/v1/jwks
+    serviceClusterIPRange: 100.64.0.0/13
+    storageBackend: etcd3
+  kubeControllerManager:
+    allocateNodeCIDRs: true
+    attachDetachReconcileSyncPeriod: 1m0s
+    cloudProvider: external
+    clusterCIDR: 10.0.128.0/17
+    clusterName: clusters.terra-hunter.com
+    configureCloudRoutes: false
+    image: registry.k8s.io/kube-controller-manager:v1.35.2@sha256:d9784320a41dd1b155c0ad8fdb5823d60c475870f3dd23865edde36b585748f2
+    leaderElection:
+      leaderElect: true
+    logLevel: 2
+    useServiceAccountCredentials: true
+  kubeDNS:
+    cacheMaxConcurrent: 150
+    cacheMaxSize: 1000
+    cpuRequest: 100m
+    domain: cluster.local
+    memoryLimit: 170Mi
+    memoryRequest: 70Mi
+    nodeLocalDNS:
+      cpuRequest: 25m
+      enabled: false
+      image: registry.k8s.io/dns/k8s-dns-node-cache:1.26.0
+      memoryRequest: 5Mi
+    provider: CoreDNS
+    serverIP: 100.64.0.10
+  kubeProxy:
+    cpuRequest: 100m
+    image: registry.k8s.io/kube-proxy:v1.35.2@sha256:015265214cc874b593a7adccdcfe4ac15d2b8e9ae89881bdcd5bcb99d42e1862
+    logLevel: 2
+  kubeScheduler:
+    image: registry.k8s.io/kube-scheduler:v1.35.2@sha256:5833e2c4b779215efe7a48126c067de199e86aa5a86518693adeef16db0ff943
+    leaderElection:
+      leaderElect: true
+    logLevel: 2
+  kubelet:
+    anonymousAuth: false
+    cgroupDriver: systemd
+    cgroupRoot: /
+    cloudProvider: external
+    clusterDNS: 100.64.0.10
+    clusterDomain: cluster.local
+    enableDebuggingHandlers: true
+    evictionHard: memory.available<100Mi,nodefs.available<10%,nodefs.inodesFree<5%,imagefs.available<10%,imagefs.inodesFree<5%
+    kubeconfigPath: /var/lib/kubelet/kubeconfig
+    logLevel: 2
+    podManifestPath: /etc/kubernetes/manifests
+    protectKernelDefaults: true
+    shutdownGracePeriod: 0s
+    shutdownGracePeriodCriticalPods: 0s
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  - ::/0
+  kubernetesVersion: 1.35.2
+  masterKubelet:
+    anonymousAuth: false
+    cgroupDriver: systemd
+    cgroupRoot: /
+    cloudProvider: external
+    clusterDNS: 100.64.0.10
+    clusterDomain: cluster.local
+    enableDebuggingHandlers: true
+    evictionHard: memory.available<100Mi,nodefs.available<10%,nodefs.inodesFree<5%,imagefs.available<10%,imagefs.inodesFree<5%
+    featureGates:
+      ImageVolume: "true"
+    kubeconfigPath: /var/lib/kubelet/kubeconfig
+    logLevel: 2
+    podManifestPath: /etc/kubernetes/manifests
+    protectKernelDefaults: true
+    shutdownGracePeriod: 0s
+    shutdownGracePeriodCriticalPods: 0s
+  masterPublicName: api.clusters.terra-hunter.com
+  networkCIDR: 10.0.0.0/16
+  networkID: vpc-04339bc3924d8916f
+  networking:
+    amazonvpc: {}
+  nodeTerminationHandler:
+    cpuRequest: 50m
+    deleteSQSMsgIfNodeNotFound: false
+    enableRebalanceDraining: false
+    enableRebalanceMonitoring: false
+    enableScheduledEventDraining: true
+    enableSpotInterruptionDraining: true
+    enabled: true
+    excludeFromLoadBalancers: true
+    managedASGTag: aws-node-termination-handler/managed
+    memoryRequest: 64Mi
+    podTerminationGracePeriod: -1
+    prometheusEnable: false
+    taintNode: false
+    version: v1.22.0
+  nonMasqueradeCIDR: 10.0.0.0/16
+  podCIDR: 10.0.128.0/17
+  secretStore: s3://taskapp-hunter-terraform-state/clusters.terra-hunter.com/secrets
+  serviceClusterIPRange: 100.64.0.0/13
+  sshAccess:
+  - 0.0.0.0/0
+  - ::/0
+  subnets:
+  - cidr: 10.0.101.0/24
+    id: subnet-0db20106752a920e4
+    name: eu-west-1a
+    type: Private
+    zone: eu-west-1a
+  - cidr: 10.0.102.0/24
+    id: subnet-0ae1be38b2cd0fb3f
+    name: eu-west-1b
+    type: Private
+    zone: eu-west-1b
+  - cidr: 10.0.103.0/24
+    id: subnet-0d51fc817dd8f434c
+    name: eu-west-1c
+    type: Private
+    zone: eu-west-1c
+  - cidr: 10.0.1.0/24
+    id: subnet-00cbd953e34f62d42
+    name: utility-eu-west-1a
+    type: Utility
+    zone: eu-west-1a
+  - cidr: 10.0.2.0/24
+    id: subnet-0ea4817e71c39c04b
+    name: utility-eu-west-1b
+    type: Utility
+    zone: eu-west-1b
+  - cidr: 10.0.3.0/24
+    id: subnet-0b701f5b01d17c7c9
+    name: utility-eu-west-1c
+    type: Utility
+    zone: eu-west-1c
+  topology:
+    bastion:
+      bastionPublicName: bastion.clusters.terra-hunter.com
+    dns:
+      type: Public
