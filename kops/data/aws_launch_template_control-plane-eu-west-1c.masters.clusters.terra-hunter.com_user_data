@@ -126,7 +126,7 @@ ClusterName: clusters.terra-hunter.com
 ConfigBase: s3://taskapp-hunter-terraform-state/clusters.terra-hunter.com
 InstanceGroupName: control-plane-eu-west-1c
 InstanceGroupRole: ControlPlane
-NodeupConfigHash: 4YJHpNAw3nu21LrHngpx89IEeLv2UGBR+SUqEsw7teU=
+NodeupConfigHash: 0bfxp5tlZQkSF1I4dBdknCMwPkiaC+2QYtTGKN590l8=
 
 __EOF_KUBE_ENV
 

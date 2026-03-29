@@ -126,28 +126,28 @@ ClusterName: clusters.terra-hunter.com
 ConfigServer:
   CACertificates: |
     -----BEGIN CERTIFICATE-----
-    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
+    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
     -----END CERTIFICATE-----
   servers:
   - https://kops-controller.internal.clusters.terra-hunter.com:3988/
 InstanceGroupName: nodes-eu-west-1a
 InstanceGroupRole: Node
-NodeupConfigHash: nlBjWFDrpD956aOo8Y4tAYpfI3Cv8twtpnNMk+hGj7c=
+NodeupConfigHash: 9MdyrGnS7CFGP3B5jDT8m4SFztBzTuH+5ErCU5X5Osw=
 
 __EOF_KUBE_ENV
 

@@ -10,19 +10,19 @@ locals {
   masters_role_name             = aws_iam_role.masters-clusters-terra-hunter-com.name
   node_autoscaling_group_ids    = [aws_autoscaling_group.nodes-eu-west-1a-clusters-terra-hunter-com.id, aws_autoscaling_group.nodes-eu-west-1b-clusters-terra-hunter-com.id, aws_autoscaling_group.nodes-eu-west-1c-clusters-terra-hunter-com.id]
   node_security_group_ids       = [aws_security_group.nodes-clusters-terra-hunter-com.id]
-  node_subnet_ids               = ["subnet-0ae1be38b2cd0fb3f", "subnet-0d51fc817dd8f434c", "subnet-0db20106752a920e4"]
+  node_subnet_ids               = ["subnet-01500a58f2b3b2727", "subnet-015f836d91170a86b", "subnet-0f95da1de4fc8c8ca"]
   nodes_role_arn                = aws_iam_role.nodes-clusters-terra-hunter-com.arn
   nodes_role_name               = aws_iam_role.nodes-clusters-terra-hunter-com.name
   region                        = "eu-west-1"
-  subnet_eu-west-1a_id          = "subnet-0db20106752a920e4"
-  subnet_eu-west-1b_id          = "subnet-0ae1be38b2cd0fb3f"
-  subnet_eu-west-1c_id          = "subnet-0d51fc817dd8f434c"
-  subnet_ids                    = ["subnet-00cbd953e34f62d42", "subnet-0ae1be38b2cd0fb3f", "subnet-0b701f5b01d17c7c9", "subnet-0d51fc817dd8f434c", "subnet-0db20106752a920e4", "subnet-0ea4817e71c39c04b"]
-  subnet_utility-eu-west-1a_id  = "subnet-00cbd953e34f62d42"
-  subnet_utility-eu-west-1b_id  = "subnet-0ea4817e71c39c04b"
-  subnet_utility-eu-west-1c_id  = "subnet-0b701f5b01d17c7c9"
+  subnet_eu-west-1a_id          = "subnet-01500a58f2b3b2727"
+  subnet_eu-west-1b_id          = "subnet-0f95da1de4fc8c8ca"
+  subnet_eu-west-1c_id          = "subnet-015f836d91170a86b"
+  subnet_ids                    = ["subnet-01500a58f2b3b2727", "subnet-015f836d91170a86b", "subnet-0c0574a590053ccba", "subnet-0cf7bd566769b02ba", "subnet-0ea605d885be0b3d2", "subnet-0f95da1de4fc8c8ca"]
+  subnet_utility-eu-west-1a_id  = "subnet-0c0574a590053ccba"
+  subnet_utility-eu-west-1b_id  = "subnet-0cf7bd566769b02ba"
+  subnet_utility-eu-west-1c_id  = "subnet-0ea605d885be0b3d2"
   vpc_cidr_block                = data.aws_vpc.clusters-terra-hunter-com.cidr_block
-  vpc_id                        = "vpc-04339bc3924d8916f"
+  vpc_id                        = "vpc-0032cf1a0abb25287"
   vpc_ipv6_cidr_block           = data.aws_vpc.clusters-terra-hunter-com.ipv6_cidr_block
   vpc_ipv6_cidr_length          = local.vpc_ipv6_cidr_block == "" ? null : tonumber(regex(".*/(\\d+)", local.vpc_ipv6_cidr_block)[0])
 }
@@ -72,7 +72,7 @@ output "node_security_group_ids" {
 }
 
 output "node_subnet_ids" {
-  value = ["subnet-0ae1be38b2cd0fb3f", "subnet-0d51fc817dd8f434c", "subnet-0db20106752a920e4"]
+  value = ["subnet-01500a58f2b3b2727", "subnet-015f836d91170a86b", "subnet-0f95da1de4fc8c8ca"]
 }
 
 output "nodes_role_arn" {
@@ -88,31 +88,31 @@ output "region" {
 }
 
 output "subnet_eu-west-1a_id" {
-  value = "subnet-0db20106752a920e4"
+  value = "subnet-01500a58f2b3b2727"
 }
 
 output "subnet_eu-west-1b_id" {
-  value = "subnet-0ae1be38b2cd0fb3f"
+  value = "subnet-0f95da1de4fc8c8ca"
 }
 
 output "subnet_eu-west-1c_id" {
-  value = "subnet-0d51fc817dd8f434c"
+  value = "subnet-015f836d91170a86b"
 }
 
 output "subnet_ids" {
-  value = ["subnet-00cbd953e34f62d42", "subnet-0ae1be38b2cd0fb3f", "subnet-0b701f5b01d17c7c9", "subnet-0d51fc817dd8f434c", "subnet-0db20106752a920e4", "subnet-0ea4817e71c39c04b"]
+  value = ["subnet-01500a58f2b3b2727", "subnet-015f836d91170a86b", "subnet-0c0574a590053ccba", "subnet-0cf7bd566769b02ba", "subnet-0ea605d885be0b3d2", "subnet-0f95da1de4fc8c8ca"]
 }
 
 output "subnet_utility-eu-west-1a_id" {
-  value = "subnet-00cbd953e34f62d42"
+  value = "subnet-0c0574a590053ccba"
 }
 
 output "subnet_utility-eu-west-1b_id" {
-  value = "subnet-0ea4817e71c39c04b"
+  value = "subnet-0cf7bd566769b02ba"
 }
 
 output "subnet_utility-eu-west-1c_id" {
-  value = "subnet-0b701f5b01d17c7c9"
+  value = "subnet-0ea605d885be0b3d2"
 }
 
 output "vpc_cidr_block" {
@@ -120,7 +120,7 @@ output "vpc_cidr_block" {
 }
 
 output "vpc_id" {
-  value = "vpc-04339bc3924d8916f"
+  value = "vpc-0032cf1a0abb25287"
 }
 
 output "vpc_ipv6_cidr_block" {
@@ -183,7 +183,7 @@ resource "aws_autoscaling_group" "bastions-clusters-terra-hunter-com" {
     value               = "owned"
   }
   target_group_arns   = [aws_lb_target_group.bastion-clusters-terra-hu-un8c0i.id]
-  vpc_zone_identifier = ["subnet-0db20106752a920e4", "subnet-0ae1be38b2cd0fb3f", "subnet-0d51fc817dd8f434c"]
+  vpc_zone_identifier = ["subnet-01500a58f2b3b2727", "subnet-0f95da1de4fc8c8ca", "subnet-015f836d91170a86b"]
 }
 
 resource "aws_autoscaling_group" "control-plane-eu-west-1a-masters-clusters-terra-hunter-com" {
@@ -249,7 +249,7 @@ resource "aws_autoscaling_group" "control-plane-eu-west-1a-masters-clusters-terr
     value               = "owned"
   }
   target_group_arns   = [aws_lb_target_group.tcp-clusters-terra-hunter-6hri46.id]
-  vpc_zone_identifier = ["subnet-0db20106752a920e4"]
+  vpc_zone_identifier = ["subnet-01500a58f2b3b2727"]
 }
 
 resource "aws_autoscaling_group" "control-plane-eu-west-1b-masters-clusters-terra-hunter-com" {
@@ -315,7 +315,7 @@ resource "aws_autoscaling_group" "control-plane-eu-west-1b-masters-clusters-terr
     value               = "owned"
   }
   target_group_arns   = [aws_lb_target_group.tcp-clusters-terra-hunter-6hri46.id]
-  vpc_zone_identifier = ["subnet-0ae1be38b2cd0fb3f"]
+  vpc_zone_identifier = ["subnet-0f95da1de4fc8c8ca"]
 }
 
 resource "aws_autoscaling_group" "control-plane-eu-west-1c-masters-clusters-terra-hunter-com" {
@@ -381,7 +381,7 @@ resource "aws_autoscaling_group" "control-plane-eu-west-1c-masters-clusters-terr
     value               = "owned"
   }
   target_group_arns   = [aws_lb_target_group.tcp-clusters-terra-hunter-6hri46.id]
-  vpc_zone_identifier = ["subnet-0d51fc817dd8f434c"]
+  vpc_zone_identifier = ["subnet-015f836d91170a86b"]
 }
 
 resource "aws_autoscaling_group" "nodes-eu-west-1a-clusters-terra-hunter-com" {
@@ -431,7 +431,7 @@ resource "aws_autoscaling_group" "nodes-eu-west-1a-clusters-terra-hunter-com" {
     propagate_at_launch = true
     value               = "owned"
   }
-  vpc_zone_identifier = ["subnet-0db20106752a920e4"]
+  vpc_zone_identifier = ["subnet-01500a58f2b3b2727"]
 }
 
 resource "aws_autoscaling_group" "nodes-eu-west-1b-clusters-terra-hunter-com" {
@@ -481,7 +481,7 @@ resource "aws_autoscaling_group" "nodes-eu-west-1b-clusters-terra-hunter-com" {
     propagate_at_launch = true
     value               = "owned"
   }
-  vpc_zone_identifier = ["subnet-0ae1be38b2cd0fb3f"]
+  vpc_zone_identifier = ["subnet-0f95da1de4fc8c8ca"]
 }
 
 resource "aws_autoscaling_group" "nodes-eu-west-1c-clusters-terra-hunter-com" {
@@ -531,7 +531,7 @@ resource "aws_autoscaling_group" "nodes-eu-west-1c-clusters-terra-hunter-com" {
     propagate_at_launch = true
     value               = "owned"
   }
-  vpc_zone_identifier = ["subnet-0d51fc817dd8f434c"]
+  vpc_zone_identifier = ["subnet-015f836d91170a86b"]
 }
 
 resource "aws_autoscaling_lifecycle_hook" "bastions-NTHLifecycleHook" {
@@ -830,6 +830,16 @@ resource "aws_iam_role_policy" "nodes-clusters-terra-hunter-com" {
   role   = aws_iam_role.nodes-clusters-terra-hunter-com.name
 }
 
+resource "aws_key_pair" "kubernetes-clusters-terra-hunter-com-8852d1a55b6b27040907b82754efe922" {
+  key_name   = "kubernetes.clusters.terra-hunter.com-88:52:d1:a5:5b:6b:27:04:09:07:b8:27:54:ef:e9:22"
+  public_key = file("${path.module}/data/aws_key_pair_kubernetes.clusters.terra-hunter.com-8852d1a55b6b27040907b82754efe922_public_key")
+  tags = {
+    "KubernetesCluster"                               = "clusters.terra-hunter.com"
+    "Name"                                            = "clusters.terra-hunter.com"
+    "kubernetes.io/cluster/clusters.terra-hunter.com" = "owned"
+  }
+}
+
 resource "aws_launch_template" "bastions-clusters-terra-hunter-com" {
   block_device_mappings {
     device_name = "/dev/sda1"
@@ -845,8 +855,9 @@ resource "aws_launch_template" "bastions-clusters-terra-hunter-com" {
   iam_instance_profile {
     name = aws_iam_instance_profile.bastions-clusters-terra-hunter-com.id
   }
-  image_id      = "ami-03446a3af42c5e74e"
+  image_id      = "ami-01d0334e94e895e89"
   instance_type = "t3.micro"
+  key_name      = aws_key_pair.kubernetes-clusters-terra-hunter-com-8852d1a55b6b27040907b82754efe922.id
   lifecycle {
     create_before_destroy = true
   }
@@ -924,8 +935,9 @@ resource "aws_launch_template" "control-plane-eu-west-1a-masters-clusters-terra-
   iam_instance_profile {
     name = aws_iam_instance_profile.masters-clusters-terra-hunter-com.id
   }
-  image_id      = "ami-03446a3af42c5e74e"
+  image_id      = "ami-01d0334e94e895e89"
   instance_type = "t3.medium"
+  key_name      = aws_key_pair.kubernetes-clusters-terra-hunter-com-8852d1a55b6b27040907b82754efe922.id
   lifecycle {
     create_before_destroy = true
   }
@@ -1020,8 +1032,9 @@ resource "aws_launch_template" "control-plane-eu-west-1b-masters-clusters-terra-
   iam_instance_profile {
     name = aws_iam_instance_profile.masters-clusters-terra-hunter-com.id
   }
-  image_id      = "ami-03446a3af42c5e74e"
+  image_id      = "ami-01d0334e94e895e89"
   instance_type = "t3.medium"
+  key_name      = aws_key_pair.kubernetes-clusters-terra-hunter-com-8852d1a55b6b27040907b82754efe922.id
   lifecycle {
     create_before_destroy = true
   }
@@ -1116,8 +1129,9 @@ resource "aws_launch_template" "control-plane-eu-west-1c-masters-clusters-terra-
   iam_instance_profile {
     name = aws_iam_instance_profile.masters-clusters-terra-hunter-com.id
   }
-  image_id      = "ami-03446a3af42c5e74e"
+  image_id      = "ami-01d0334e94e895e89"
   instance_type = "t3.medium"
+  key_name      = aws_key_pair.kubernetes-clusters-terra-hunter-com-8852d1a55b6b27040907b82754efe922.id
   lifecycle {
     create_before_destroy = true
   }
@@ -1212,8 +1226,9 @@ resource "aws_launch_template" "nodes-eu-west-1a-clusters-terra-hunter-com" {
   iam_instance_profile {
     name = aws_iam_instance_profile.nodes-clusters-terra-hunter-com.id
   }
-  image_id      = "ami-03446a3af42c5e74e"
+  image_id      = "ami-01d0334e94e895e89"
   instance_type = "t3.medium"
+  key_name      = aws_key_pair.kubernetes-clusters-terra-hunter-com-8852d1a55b6b27040907b82754efe922.id
   lifecycle {
     create_before_destroy = true
   }
@@ -1296,8 +1311,9 @@ resource "aws_launch_template" "nodes-eu-west-1b-clusters-terra-hunter-com" {
   iam_instance_profile {
     name = aws_iam_instance_profile.nodes-clusters-terra-hunter-com.id
   }
-  image_id      = "ami-03446a3af42c5e74e"
+  image_id      = "ami-01d0334e94e895e89"
   instance_type = "t3.medium"
+  key_name      = aws_key_pair.kubernetes-clusters-terra-hunter-com-8852d1a55b6b27040907b82754efe922.id
   lifecycle {
     create_before_destroy = true
   }
@@ -1380,8 +1396,9 @@ resource "aws_launch_template" "nodes-eu-west-1c-clusters-terra-hunter-com" {
   iam_instance_profile {
     name = aws_iam_instance_profile.nodes-clusters-terra-hunter-com.id
   }
-  image_id      = "ami-03446a3af42c5e74e"
+  image_id      = "ami-01d0334e94e895e89"
   instance_type = "t3.medium"
+  key_name      = aws_key_pair.kubernetes-clusters-terra-hunter-com-8852d1a55b6b27040907b82754efe922.id
   lifecycle {
     create_before_destroy = true
   }
@@ -1456,13 +1473,13 @@ resource "aws_lb" "api-clusters-terra-hunter-com" {
   name                             = "api-clusters-terra-hunter-5unlo4"
   security_groups                  = [aws_security_group.api-elb-clusters-terra-hunter-com.id]
   subnet_mapping {
-    subnet_id = "subnet-00cbd953e34f62d42"
+    subnet_id = "subnet-0c0574a590053ccba"
   }
   subnet_mapping {
-    subnet_id = "subnet-0ea4817e71c39c04b"
+    subnet_id = "subnet-0cf7bd566769b02ba"
   }
   subnet_mapping {
-    subnet_id = "subnet-0b701f5b01d17c7c9"
+    subnet_id = "subnet-0ea605d885be0b3d2"
   }
   tags = {
     "KubernetesCluster"                               = "clusters.terra-hunter.com"
@@ -1478,13 +1495,13 @@ resource "aws_lb" "bastion-clusters-terra-hunter-com" {
   name                             = "bastion-clusters-terra-hu-un8c0i"
   security_groups                  = [aws_security_group.bastion-elb-clusters-terra-hunter-com.id]
   subnet_mapping {
-    subnet_id = "subnet-00cbd953e34f62d42"
+    subnet_id = "subnet-0c0574a590053ccba"
   }
   subnet_mapping {
-    subnet_id = "subnet-0ea4817e71c39c04b"
+    subnet_id = "subnet-0cf7bd566769b02ba"
   }
   subnet_mapping {
-    subnet_id = "subnet-0b701f5b01d17c7c9"
+    subnet_id = "subnet-0ea605d885be0b3d2"
   }
   tags = {
     "KubernetesCluster"                               = "clusters.terra-hunter.com"
@@ -1530,7 +1547,7 @@ resource "aws_lb_target_group" "bastion-clusters-terra-hu-un8c0i" {
     "Name"                                            = "bastion-clusters-terra-hu-un8c0i"
     "kubernetes.io/cluster/clusters.terra-hunter.com" = "owned"
   }
-  vpc_id = "vpc-04339bc3924d8916f"
+  vpc_id = "vpc-0032cf1a0abb25287"
 }
 
 resource "aws_lb_target_group" "tcp-clusters-terra-hunter-6hri46" {
@@ -1550,7 +1567,7 @@ resource "aws_lb_target_group" "tcp-clusters-terra-hunter-6hri46" {
     "Name"                                            = "tcp-clusters-terra-hunter-6hri46"
     "kubernetes.io/cluster/clusters.terra-hunter.com" = "owned"
   }
-  vpc_id = "vpc-04339bc3924d8916f"
+  vpc_id = "vpc-0032cf1a0abb25287"
 }
 
 resource "aws_route53_record" "api-clusters-terra-hunter-com" {
@@ -1801,7 +1818,7 @@ resource "aws_security_group" "api-elb-clusters-terra-hunter-com" {
     "Name"                                            = "api-elb.clusters.terra-hunter.com"
     "kubernetes.io/cluster/clusters.terra-hunter.com" = "owned"
   }
-  vpc_id = "vpc-04339bc3924d8916f"
+  vpc_id = "vpc-0032cf1a0abb25287"
 }
 
 resource "aws_security_group" "bastion-clusters-terra-hunter-com" {
@@ -1812,7 +1829,7 @@ resource "aws_security_group" "bastion-clusters-terra-hunter-com" {
     "Name"                                            = "bastion.clusters.terra-hunter.com"
     "kubernetes.io/cluster/clusters.terra-hunter.com" = "owned"
   }
-  vpc_id = "vpc-04339bc3924d8916f"
+  vpc_id = "vpc-0032cf1a0abb25287"
 }
 
 resource "aws_security_group" "bastion-elb-clusters-terra-hunter-com" {
@@ -1823,7 +1840,7 @@ resource "aws_security_group" "bastion-elb-clusters-terra-hunter-com" {
     "Name"                                            = "bastion-elb.clusters.terra-hunter.com"
     "kubernetes.io/cluster/clusters.terra-hunter.com" = "owned"
   }
-  vpc_id = "vpc-04339bc3924d8916f"
+  vpc_id = "vpc-0032cf1a0abb25287"
 }
 
 resource "aws_security_group" "masters-clusters-terra-hunter-com" {
@@ -1834,7 +1851,7 @@ resource "aws_security_group" "masters-clusters-terra-hunter-com" {
     "Name"                                            = "masters.clusters.terra-hunter.com"
     "kubernetes.io/cluster/clusters.terra-hunter.com" = "owned"
   }
-  vpc_id = "vpc-04339bc3924d8916f"
+  vpc_id = "vpc-0032cf1a0abb25287"
 }
 
 resource "aws_security_group" "nodes-clusters-terra-hunter-com" {
@@ -1845,7 +1862,7 @@ resource "aws_security_group" "nodes-clusters-terra-hunter-com" {
     "Name"                                            = "nodes.clusters.terra-hunter.com"
     "kubernetes.io/cluster/clusters.terra-hunter.com" = "owned"
   }
-  vpc_id = "vpc-04339bc3924d8916f"
+  vpc_id = "vpc-0032cf1a0abb25287"
 }
 
 resource "aws_security_group_rule" "from-0-0-0-0--0-ingress-tcp-22to22-bastion-elb-clusters-terra-hunter-com" {
@@ -2220,7 +2237,7 @@ resource "aws_sqs_queue" "clusters-terra-hunter-com-nth" {
 }
 
 data "aws_vpc" "clusters-terra-hunter-com" {
-  id = "vpc-04339bc3924d8916f"
+  id = "vpc-0032cf1a0abb25287"
 }
 
 terraform {

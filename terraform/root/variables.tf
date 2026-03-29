@@ -55,7 +55,6 @@ variable "db_username" {
 variable "db_password" {
   description = "Database master password"
   type        = string
-  default = "postgres-hunter"
   sensitive   = true
 }
 

@@ -1,7 +1,7 @@
 apiVersion: kops.k8s.io/v1alpha2
 kind: Cluster
 metadata:
-  creationTimestamp: "2026-03-26T15:22:45Z"
+  creationTimestamp: "2026-03-28T23:37:55Z"
   name: clusters.terra-hunter.com
 spec:
   api:
@@ -100,7 +100,7 @@ spec:
     - https://127.0.0.1:4001
     etcdServersOverrides:
     - /events#https://127.0.0.1:4002
-    image: registry.k8s.io/kube-apiserver:v1.35.2@sha256:68cdc586f13b13edb7aa30a18155be530136a39cfd5ef8672aad8ccc98f0a7f7
+    image: registry.k8s.io/kube-apiserver:v1.35.3@sha256:6c6e2571f98e738015a39ed21305ab4166a3e2873f9cc01d7fa58371cf0f5d30
     kubeletPreferredAddressTypes:
     - InternalIP
     - Hostname
@@ -126,7 +126,7 @@ spec:
     clusterCIDR: 10.0.128.0/17
     clusterName: clusters.terra-hunter.com
     configureCloudRoutes: false
-    image: registry.k8s.io/kube-controller-manager:v1.35.2@sha256:d9784320a41dd1b155c0ad8fdb5823d60c475870f3dd23865edde36b585748f2
+    image: registry.k8s.io/kube-controller-manager:v1.35.3@sha256:23a24aafa10831eb47477b0b31a525ee8a4a99d2c17251aac46c43be8201ec59
     leaderElection:
       leaderElect: true
     logLevel: 2
@@ -147,10 +147,10 @@ spec:
     serverIP: 100.64.0.10
   kubeProxy:
     cpuRequest: 100m
-    image: registry.k8s.io/kube-proxy:v1.35.2@sha256:015265214cc874b593a7adccdcfe4ac15d2b8e9ae89881bdcd5bcb99d42e1862
+    image: registry.k8s.io/kube-proxy:v1.35.3@sha256:8743aec6a360aedcb7a076cbecea367b072abe1bfade2e2098650df502e2bc89
     logLevel: 2
   kubeScheduler:
-    image: registry.k8s.io/kube-scheduler:v1.35.2@sha256:5833e2c4b779215efe7a48126c067de199e86aa5a86518693adeef16db0ff943
+    image: registry.k8s.io/kube-scheduler:v1.35.3@sha256:7070dff574916315268ab483f1088a107b1f3a8a1a87f3e3645933111ade7013
     leaderElection:
       leaderElect: true
     logLevel: 2
@@ -172,7 +172,7 @@ spec:
   kubernetesApiAccess:
   - 0.0.0.0/0
   - ::/0
-  kubernetesVersion: 1.35.2
+  kubernetesVersion: 1.35.3
   masterKubelet:
     anonymousAuth: false
     cgroupDriver: systemd
@@ -192,7 +192,7 @@ spec:
     shutdownGracePeriodCriticalPods: 0s
   masterPublicName: api.clusters.terra-hunter.com
   networkCIDR: 10.0.0.0/16
-  networkID: vpc-04339bc3924d8916f
+  networkID: vpc-0032cf1a0abb25287
   networking:
     amazonvpc: {}
   nodeTerminationHandler:
@@ -219,32 +219,32 @@ spec:
   - ::/0
   subnets:
   - cidr: 10.0.101.0/24
-    id: subnet-0db20106752a920e4
+    id: subnet-01500a58f2b3b2727
     name: eu-west-1a
     type: Private
     zone: eu-west-1a
   - cidr: 10.0.102.0/24
-    id: subnet-0ae1be38b2cd0fb3f
+    id: subnet-0f95da1de4fc8c8ca
     name: eu-west-1b
     type: Private
     zone: eu-west-1b
   - cidr: 10.0.103.0/24
-    id: subnet-0d51fc817dd8f434c
+    id: subnet-015f836d91170a86b
     name: eu-west-1c
     type: Private
     zone: eu-west-1c
   - cidr: 10.0.1.0/24
-    id: subnet-00cbd953e34f62d42
+    id: subnet-0c0574a590053ccba
     name: utility-eu-west-1a
     type: Utility
     zone: eu-west-1a
   - cidr: 10.0.2.0/24
-    id: subnet-0ea4817e71c39c04b
+    id: subnet-0cf7bd566769b02ba
     name: utility-eu-west-1b
     type: Utility
     zone: eu-west-1b
   - cidr: 10.0.3.0/24
-    id: subnet-0b701f5b01d17c7c9
+    id: subnet-0ea605d885be0b3d2
     name: utility-eu-west-1c
     type: Utility
     zone: eu-west-1c

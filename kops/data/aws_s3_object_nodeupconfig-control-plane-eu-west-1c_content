@@ -26,7 +26,7 @@ APIServerConfig:
     - https://127.0.0.1:4001
     etcdServersOverrides:
     - /events#https://127.0.0.1:4002
-    image: registry.k8s.io/kube-apiserver:v1.35.2@sha256:68cdc586f13b13edb7aa30a18155be530136a39cfd5ef8672aad8ccc98f0a7f7
+    image: registry.k8s.io/kube-apiserver:v1.35.3@sha256:6c6e2571f98e738015a39ed21305ab4166a3e2873f9cc01d7fa58371cf0f5d30
     kubeletPreferredAddressTypes:
     - InternalIP
     - Hostname
@@ -47,26 +47,26 @@ APIServerConfig:
     storageBackend: etcd3
   ServiceAccountPublicKeys: |
     -----BEGIN RSA PUBLIC KEY-----
-    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo9mj5d9LW/AVWAj063i3
-    qIViOXfavEYLcPC4UPGyCipCw/iooUeQltSa24nliscpfRVl/skVykP7xF7tVMlu
-    ip2O4h0crr/E5FAybvoP/RZuU0N2HGTGBQH57cewK6Z+gNPaQv0P+9JHcG3LxQd5
-    1BJ/kHzoYfPy9re3QyyfbjG8s4jrmqKZQH8PBzvo29xoYO5/Q6nrjdjNVDwTYAFz
-    nWig30Wo/Lws4Qlh+gJpI3fVIjFdMNX66kWBPO2L2L1VLF3fZRGKQ0v+Kwjkvll3
-    d/JiIkm9By7smBzOzLMonKtJVP5dR0PNOVYY/cx3uXDq4RaK+jUkyLohiAsexx+V
-    BwIDAQAB
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtDxht/EieKqhp/hkGt/+
+    s0qJZJrAjXKvIYrF1WQJ7kuBsUaKr/So3usRnwecxIhESo6t8tt9hubmDRR/M9sI
+    ugB59JeK+Fh0S5wLeFsHazLpo6B/CV0lwwiwZdTuq5MrzhkLgzR4PapufTORqg6k
+    fSbz22sj39JT/PmNdzkSo9o+bLfK4asJNjDpm+pnRnsLPm+RHPUxC9dXrgYE8AUB
+    54gA459K0hfes2PxNh3m6WIcJrjOYyCtrc22z8jGgIj6TUOUFhrAgZllvrSLh9YQ
+    NTGvXQbbLdJbg6U0ehl6ZQTtSH7Nevzh12PnZDQR2ftkDUQgyTSUWBxZY6W+8rlU
+    NwIDAQAB
     -----END RSA PUBLIC KEY-----
 Assets:
   amd64:
-  - 20887f461c0de96b0cb14c7af6b897f92d424ac078f8642f98e83ef52a0bf03e@https://dl.k8s.io/release/v1.35.2/bin/linux/amd64/kubelet
-  - 924eb50779153f20cb668117d141440b95df2f325a64452d78dff9469145e277@https://dl.k8s.io/release/v1.35.2/bin/linux/amd64/kubectl
+  - 28d570423eaad5f1f5658a646bd8c015c786c95d62ffaf14bf35fa0c4326fa05@https://dl.k8s.io/release/v1.35.3/bin/linux/amd64/kubelet
+  - fd31c7d7129260e608f6faf92d5984c3267ad0b5ead3bced2fe125686e286ad6@https://dl.k8s.io/release/v1.35.3/bin/linux/amd64/kubectl
   - 7644623e4ec9ad443ab352a8a5800a5180ee28741288be805286ba72bb8e7164@https://artifacts.k8s.io/binaries/cloud-provider-aws/v1.31.7/linux/amd64/ecr-credential-provider-linux-amd64
   - 4793dc5c1f34ebf8402990d0050f3c294aa3c794cd5a4baa403c1cf10602326d@https://github.com/containerd/containerd/releases/download/v2.1.6/containerd-2.1.6-linux-amd64.tar.gz
   - 5966ca40b6187b30e33bfc299c5f1fe72e8c1aa01cf3fefdadf391668f47f103@https://github.com/opencontainers/runc/releases/download/v1.3.4/runc.amd64
   - 45e517c13ecd479a8379da3466bf19b8824f1c8b810493431bd1a9f8896d90af@https://artifacts.k8s.io/binaries/kops/1.35.0/linux/amd64/protokube,https://github.com/kubernetes/kops/releases/download/v1.35.0/protokube-linux-amd64
   - 50e9028cc8a12ea6b1e82cedb964395209759d5afe542713bebf8115f56b4697@https://artifacts.k8s.io/binaries/kops/1.35.0/linux/amd64/channels,https://github.com/kubernetes/kops/releases/download/v1.35.0/channels-linux-amd64
   arm64:
-  - eaf11f9c20c385624775671662e127b083c9b5d0b451fd613f9468e09ca5656c@https://dl.k8s.io/release/v1.35.2/bin/linux/arm64/kubelet
-  - cd859449f54ad2cb05b491c490c13bb836cdd0886ae013c0aed3dd67ff747467@https://dl.k8s.io/release/v1.35.2/bin/linux/arm64/kubectl
+  - 58496a5d16d4316b18397735190d2d41e0c368169ecb458d91b09f4cd1e03c80@https://dl.k8s.io/release/v1.35.3/bin/linux/arm64/kubelet
+  - 6f0cd088a82dde5d5807122056069e2fac4ed447cc518efc055547ae46525f14@https://dl.k8s.io/release/v1.35.3/bin/linux/arm64/kubectl
   - 1980e3a038cb16da48a137743b31fb81de6c0b59fa06c206c2bc20ce0a52f849@https://artifacts.k8s.io/binaries/cloud-provider-aws/v1.31.7/linux/arm64/ecr-credential-provider-linux-arm64
   - 88d6e32348c36628c8500a630c6dd4b3cb8c680b1d18dc8d1d19041f67757c6e@https://github.com/containerd/containerd/releases/download/v2.1.6/containerd-2.1.6-linux-arm64.tar.gz
   - d6dcab36d1b6af1b72c7f0662e5fcf446a291271ba6006532b95c4144e19d428@https://github.com/opencontainers/runc/releases/download/v1.3.4/runc.arm64
@@ -75,141 +75,141 @@ Assets:
 CAs:
   apiserver-aggregator-ca: |
     -----BEGIN CERTIFICATE-----
-    MIIDDDCCAfSgAwIBAgIMGKBte157y/O+uTMzMA0GCSqGSIb3DQEBCwUAMCIxIDAe
-    BgNVBAMTF2FwaXNlcnZlci1hZ2dyZWdhdG9yLWNhMB4XDTI2MDMyNDE1MjM1MFoX
-    DTM2MDMyMzE1MjM1MFowIjEgMB4GA1UEAxMXYXBpc2VydmVyLWFnZ3JlZ2F0b3It
-    Y2EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDDn1mxjO9+UAWvbttq
-    Jycjuz8bm5FyRJGTVD20bkp/p8dFweljA/Ajr6xmvxqoyIppbCi213T8zmSfrOPx
-    3Oow937t05ipKsQ3naZuwywY4i2XK3zEZNhNIPEcBlmu0pJIbul1+q/tm3DAXO+k
-    AFbUDb5XZFDnVGgfSMJ9VCIcl2FRd3VX7avhsCtjv2XjXc9F5zG9U6s/ZFdvm63D
-    90B5jvr8g13iYDZ+JTfpYxTUgrSDBVBAnsxHD5r2vkt0y9S/DHg2Pb5/ZFnCpWhy
-    OGMrGItU++bWtaFvHJpl2H0xE30YTgrmB3to1nVkTpA8iAM4iIpZXMndLtuGdvRA
-    kBlLAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MB0G
-    A1UdDgQWBBRMZBr5ya6qshEXzj5DVKVXTFgNmjANBgkqhkiG9w0BAQsFAAOCAQEA
-    lkGq3IhkZEUvnb6eAUhRZTtDFNxjCEq7aflG8iXDBG/HTmGkdJBQN8vyWY9dZDYQ
-    mwyySQclBN/jLM7cZFoaUzdg++8wO+fqFjOSxTJm79jfNmVxl6iwPBLpTW4uRc+z
-    CO5NNqxmultRH4MxcMOwMc4Dnwd8FwUBs8El3UmUOhztP9mKa/VUJLCFV30TZtHg
-    ZwqENJ7lUPl3WT7Fex1aCyg50gphTnGT0DkAjuaM9S/pB4rbwP6iFJgGk73h6b+8
-    5DsmtqisTDrHNXt47zqs0RuQwpPKTeykDPk3HqreHrRC7AzdV/T+L71mUh2PJl7W
-    Guc1Vm+P1UOEwdidRjHtcg==
+    MIIDDDCCAfSgAwIBAgIMGKElqQ/+FCmEFf8eMA0GCSqGSIb3DQEBCwUAMCIxIDAe
+    BgNVBAMTF2FwaXNlcnZlci1hZ2dyZWdhdG9yLWNhMB4XDTI2MDMyNjIzMzg1NloX
+    DTM2MDMyNTIzMzg1NlowIjEgMB4GA1UEAxMXYXBpc2VydmVyLWFnZ3JlZ2F0b3It
+    Y2EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDma9Natotomva0RVFv
+    KZzbk8Z7uRYIBUCjTTcRNUcjRZdxzvuNIAigx1pAQdtGsGKPOpHyTtdrSpscnbxX
+    h6apiUYKPWr159083txPKBVHiF08sN905PHiBvSCZ8uCgP7KzDeyH5pFyEUb8JLu
+    97ierlxax3LezuE6AGIMX/dWmUxwS3mmz1jryEMvRsRByc0Sg1GabcxudWP0Uf/3
+    mxyN8OxnM0nI7nfttuqq4AD1wwsqGozHqIZSNgblGAMvy3oNE1y0tI/IxVEbyJuu
+    pEcp9ag9ULb8SWPLJOexoiX1Q37wWsal+nbCanVzFV+l0th9ySDATdgSsTsSEcOX
+    zRJDAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MB0G
+    A1UdDgQWBBTtQhD2+8lbVcrgYyXJyxyY2pSm7DANBgkqhkiG9w0BAQsFAAOCAQEA
+    aszLIrQHQvWEblYd8HPIaRZNCEO3q2fQMIqbt/baPSM/rydzCG4VSUs1qPxiNOa7
+    4vGiSMVkmPUV3S6vjwngAo2bN1nEvq106jJQNo7XDSPI7IdLKGCLfucBhHjNdveC
+    VTTyE9CQtYpbi2WYsU7+vOmgiU9Mz9hfqUxq0Jv0qeM/LbhenVEwBbUwpRebPYYf
+    MPNJbm6OJ0RZJEsncT6epM6EbkLq2kyBI4YczsTsrqvkBAw7OuefwGolZAPrdCoM
+    BCQ/RYsFqBKchNLO97aA4gHrwACddZJemrMRvBiSRkmPyD7Qzroo3anky0PVU88b
+    BHZAn9IGB7BVKG56ITfEpA==
     -----END CERTIFICATE-----
   etcd-clients-ca: |
     -----BEGIN CERTIFICATE-----
-    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
+    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
     -----END CERTIFICATE-----
   etcd-manager-ca-events: |
     -----BEGIN CERTIFICATE-----
-    MIIDCjCCAfKgAwIBAgIMGKBte13LSa6yWfuSMA0GCSqGSIb3DQEBCwUAMCExHzAd
-    BgNVBAMTFmV0Y2QtbWFuYWdlci1jYS1ldmVudHMwHhcNMjYwMzI0MTUyMzUwWhcN
-    MzYwMzIzMTUyMzUwWjAhMR8wHQYDVQQDExZldGNkLW1hbmFnZXItY2EtZXZlbnRz
-    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl2Xl21iiGz1j1iT3q5ug
-    S6LEG0kDf5THOxTwKGT60rmK4aLKlCD2GYE0ME4C/xddMJkWZAK3ML345xWId7Pn
-    84TSl5Mwzkay/L25R0Fz0QmuPvgoCN4LsOhcoVuTqJWIib1T4HLsGkKU0dNtDc+N
-    cwpO83m9jeB0XVyNy0kitWxr9+M9iB5pQ/NemoCfyuFPlogxo9fFRoNRc0BCuBLq
-    EGnN6mHTxAB0OqnlLJgUQBEe+2HppVif59UxyNXVpGFCvIadSJ07yt/jJH+eN8fk
-    NizXoFNgHVB1wsfUcqfbwnjnRdqrt+gHWKSvL3TpAc0pJn0O193lCMhQc0jndc4m
-    3QIDAQABo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNV
-    HQ4EFgQUNA8eEfzgsy6fU8u7nXbwzLYCauwwDQYJKoZIhvcNAQELBQADggEBAB/n
-    m5Rbs0UkxEwW61mkusWxPnVpHflYom8o48ugMUswl8+ShJWZum+Hsn7kFi3Arakk
-    i+hVBCyIiq2vYDBLx9u7Cq/zZTkkSFodXmODUA+zCjNQA8ivMZf17FfnRS1mqR85
-    n21YI1ah72T2l6v4lc3cNbE0k/v8oIkI10eT7iLUkPByxwWCxiGvHD8NKRXwZ5AL
-    gR96z+vJ7XZtSMF4vDaPd8kCiJdAyfxLTG+2lgpbuKvs8WtFQPztOMZN0DE9Wi2m
-    UkAinxxGqh5fcn+3KyNTYGXPJQM3UtVUrR7WlvfHe57hVAc+7QdSFABqAB3B99Hl
-    ppBtn4rV1/Csa5G/bG4=
+    MIIDCjCCAfKgAwIBAgIMGKElqQ3uyoAHMw9VMA0GCSqGSIb3DQEBCwUAMCExHzAd
+    BgNVBAMTFmV0Y2QtbWFuYWdlci1jYS1ldmVudHMwHhcNMjYwMzI2MjMzODU2WhcN
+    MzYwMzI1MjMzODU2WjAhMR8wHQYDVQQDExZldGNkLW1hbmFnZXItY2EtZXZlbnRz
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxE/mB04Mmnb8lPiHVYDe
+    /eVzXpVwkSsNQdCLYWEXiFHb33G6gzl2TOTRDRvV5p3JFJprdededYZ9oNnVYn+E
+    3ZyiC5Pk0UTqwaZFyhb8ceFCB5w8ygEz3ETI1NE864r5bmpucq366bxJudkXpna9
+    0FtA6C3/Gf102LEdgwVGmTuUNbrY2cwHv1VaIdW+q6SurYXTWE8nN1V90Qso8Fxf
+    xhjAMRDhqJuPBAZY7AKL3jPg7g29A1NgVZR6TZE7O6TwD8LVkIWeBa0pGyTrODp/
+    M2sb1rnKZy8qObQ8ISDZ+lPvvaD2DhZ9NCR2ARdM0Qf2vVdMs7v59yPQ59PPfFuf
+    hwIDAQABo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNV
+    HQ4EFgQU0kdKN3QHGxyT0fUntpFPKqf0QigwDQYJKoZIhvcNAQELBQADggEBAFe2
+    PCh5EJDMLDfTdES+RYpa4mL2owg9tnGyieSad5O1WJ8xBJSYASBAbka/UvpF+lpM
+    nPxiBmLIZZ/yOZ7BOeK5g2eWONayUatWIg2zBnyJx5/bZnQQKGpEFAvjohLudGse
+    /kFDj0E06ZZVCa36yYfRBrBAR7KXlKXsnoiAPlT7OCGiq91XI5+DZG8iGdJsKHVk
+    1yrn+yXJH36EKM7lKJH470e+jGUfk9UAxfPEGUEd5SpsYhMzuEEHx0v08C6lsWoV
+    81+lbrquxSnqGW2TF5iaMs8qUrYi64geu1mB9SU1EkR9sYXwwUMznyviiPPo3snB
+    kze53gl6R3XQruqSrBs=
     -----END CERTIFICATE-----
   etcd-manager-ca-main: |
     -----BEGIN CERTIFICATE-----
-    MIIDBjCCAe6gAwIBAgIMGKBte2D2/sxOxVKFMA0GCSqGSIb3DQEBCwUAMB8xHTAb
-    BgNVBAMTFGV0Y2QtbWFuYWdlci1jYS1tYWluMB4XDTI2MDMyNDE1MjM1MFoXDTM2
-    MDMyMzE1MjM1MFowHzEdMBsGA1UEAxMUZXRjZC1tYW5hZ2VyLWNhLW1haW4wggEi
-    MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDQRIyaQFaG59907Qy2OL15t9F0
-    dHXkArY8/Kc8MP6Ce1aWKUGgnxdIW1/VizDWvn1qlOwbfHqr9PqINz/d9cU+GhZ/
-    hjN4ggyC0o8GWusjtGbKzfFsOLqmD94ycphJSD3yd5wXtCXBTy7wDT0gOSkax4QE
-    imGxxiVWcWahhp3u+15aCvOyISF9LGymKUQROcFyk40PiBcVgErVjbVdWGLJfQT6
-    IGuyRcZ++vIbf/r3obfp3g1Vg13s1MX6L/cqGfO7J0IaLaq9KDZLoKYssbvy7fKF
-    nd70asG1AotkXfVIfZwBcvXDZc60fm1MScnWA0YqOT7ItkiKrVUwW2h/UV5DAgMB
+    MIIDBjCCAe6gAwIBAgIMGKElqRJaoyhPbclgMA0GCSqGSIb3DQEBCwUAMB8xHTAb
+    BgNVBAMTFGV0Y2QtbWFuYWdlci1jYS1tYWluMB4XDTI2MDMyNjIzMzg1NloXDTM2
+    MDMyNTIzMzg1NlowHzEdMBsGA1UEAxMUZXRjZC1tYW5hZ2VyLWNhLW1haW4wggEi
+    MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDUNeW/WLVgMjcvj+yyFgaaAEvK
+    YpYn8ehS87QtklRzQxcL4oVAAd9RyGoSLbUYN2aFeJAdA2P42eIbEodY2c5ECgGT
+    cofzUeurmgLS1du15puPO/rkB7deXGIyysnVaEBRaF6yEj0/T5ldaUIeLi9Wk88w
+    /Krm1ShozUNEmfX7iI7UcO5hEz0aj8C+UhhWywQqIwrP4T0bzdTtePLooMSJyZBe
+    jmdWpVKZNwG9BAk1uygXe6T0JJOsQnpFxdFnhDqSI2Cc7t8nEpqKiipXHzfIBuNC
+    AJDHI4FQ8RFsgOeCYWuv/OnG/OjwGu21N6KobDJG7cpxGWXUMTr7I+kSUQJzAgMB
     AAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQW
-    BBTjfrjYL6mi+QcBe8Crh5bI85g+STANBgkqhkiG9w0BAQsFAAOCAQEAMGH2IxRI
-    WpanSsctPUVY65kPDYEs7xJYRobMNOj6sBCq6HNJ/jlJ6MJTtf+CqAWBS7a9tWLm
-    qrlNilOAGD339cdca2fqwKip9sRbOTYpssKTbQgSUJO6Nb0bA6wgQg/drlAqjb0x
-    PSZ145YtdyRkL5JxFoJkEZAhr0hZVKuZPg/rswAmX+VcQQpQp3bDoZIgAkktt/4x
-    xnE3Oln+uUS2JYdhcB/oZTfb7ueBRtjjJuFNbriKWruGMX/micnVwotUasrHFR+e
-    aWCSau2d0PCHP9qFGJYekTuTDR2Zhh5jKtRC8F9GQQchioBAzUQfqOKtUoEhYnCQ
-    8GdmCRySqxp8zA==
+    BBR+yZPaIHGMFkiTP3jQYJf6WLUncDANBgkqhkiG9w0BAQsFAAOCAQEArHGUe1Ji
+    RgCqN9XcPP497ceAyZxB606f8N11wWVGcQpzyDlSgqs7Z3ZViIa0f1riLyrEMLXi
+    /Q+K3qv3Uqs4BSRhmBWydFlH5UAVybQew1R4iKc+9iJgfRWe2dKyNU2sJ/bkt3XO
+    Q334armcrIyBORBEHWwmQEkHjqCrHfCi166uYEu4GVydSO3tnsG8Wge/HcVMfE+0
+    9dCkRJUzvBv0U4aPCdEszooRKl+1Sj3V6Rv1ed21wUKpao4YYgcLfEn3fQ9/hf0r
+    lkimig28pQDl3a1iBbjFChC9msXafqJ+pC1VnIhhgq22X4H9PS6LtbjDVrlS6/Lu
+    w/KTjz+kp/DOXw==
     -----END CERTIFICATE-----
   etcd-peers-ca-events: |
     -----BEGIN CERTIFICATE-----
-    MIIDBjCCAe6gAwIBAgIMGKBte13RIfRrcRraMA0GCSqGSIb3DQEBCwUAMB8xHTAb
-    BgNVBAMTFGV0Y2QtcGVlcnMtY2EtZXZlbnRzMB4XDTI2MDMyNDE1MjM1MFoXDTM2
-    MDMyMzE1MjM1MFowHzEdMBsGA1UEAxMUZXRjZC1wZWVycy1jYS1ldmVudHMwggEi
-    MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDSWQgz547S4Yys2i8PTyxHvIau
-    sv4vBfCuMTvOhgj935d2fYbOF7xuWbc0vP05VFB9bT4/CPuoye9OfaHfJe7Ixn2m
-    7h6mjo/Q25XuDAPFqFq9vKZqDj0IBgwMukTq+Wy41sYgCYa/ujBAQNH8CKlwTHgk
-    P6ZYHH4J6vBsVltjJwyajp416F2HqHnr+yrYSUgmRX1HyxjSPAMtZq0rZbz585Tz
-    f8C66Rxfq4gBtvYKS0jSxV0ZtUwfPvLmizlVzyeKCuDgnx0xs8axDirS49gzXC4/
-    ozp/tojV1AY2C2QRH/aGrX2Dr8lVzuwmw7PbdE7ptXiM2A2mhxqQU4O3ECnfAgMB
+    MIIDBjCCAe6gAwIBAgIMGKElqRCjnqbzxJRMMA0GCSqGSIb3DQEBCwUAMB8xHTAb
+    BgNVBAMTFGV0Y2QtcGVlcnMtY2EtZXZlbnRzMB4XDTI2MDMyNjIzMzg1NloXDTM2
+    MDMyNTIzMzg1NlowHzEdMBsGA1UEAxMUZXRjZC1wZWVycy1jYS1ldmVudHMwggEi
+    MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDeXpkFZkXx7L6B4q+RCkhjCwPC
+    LEKxhVYwEmwoB6xDMUKTK08VvgIxXrqMXrxFcBczo9PlXfVLj9gqOX/kll1rWB6h
+    5irNSQhBX4O8m24tDKt7chnFxUCBYIQlE/OEhdy4456b0zsA/4p/B0nwTztUBR8F
+    civwJOAt3VWTxzA+qyu1rKck9qGL0yHrjI0zRoDxwD/nukbxb9GZDPd/Lu/9Ipca
+    4Cm4juH8Pug1Yh5QYvNkloejIrVy8bUHZfpI5YNp096CN+CjXJ+Nbi69M+jjCjly
+    /jTIxLuLVlicySWTBMLKvsMy4y3USTg4OGcseZPdz7FLxLngOFgLvew30TgDAgMB
     AAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQW
-    BBROU1AaV3/VBZ5CDBzlGN+d040bcDANBgkqhkiG9w0BAQsFAAOCAQEAjo+C++Vj
-    ESNj97pqR+X2ufJZ7bXhF4KpgKHb0o5NNYy9E7uBXsgFjkk6URnoRrAjjSWumMia
-    1+BgQfkNfxvFGsx3uIYMBD6h5dlXPvFqXku8IqYtdESlx+SSZTtfv3OXOweOLcwn
-    pInPVrsdOrnUY94lJjmn3Wk/pVc/v2Jm+De2qusA5XyPs+CDs2IcKChQ7dz8/c1B
-    ONB2IL1bqHLN/4+RqDEitzQtwDV175D854lqaKoyP1lhigE0tsNHB29t+OOi8LVD
-    oak+gyxXIHxdvQHX/zZFgf6FnwbrVpH/S0Gh+/7wa0vj3ItkohF06ttsWjJwsMmN
-    cXjfHF/hD8zT6w==
+    BBTxbcglEG8Y7cwgjzQw3oe0000L4jANBgkqhkiG9w0BAQsFAAOCAQEAnm1i1axD
+    LVyeAwukvciA4d1T7v+WQtnPSzbwxGpOLi7WHuTbb3S2hqqXj3FLQUp0pjuDWPQH
+    8ZkWc4gLmSgUQE6zNvmCU/0XaV/acMQ6T3BpW0oh/mg2KKaM1TCnnCCOQ0bwecZg
+    tzc3TTYAc4SXsAhkUu3zkahkjPmmZgitValG+/rGj7LSRL0tnvsoEYi4WhUPywDq
+    CvGY/E5HCpLhF+VsK6r6LvvemD3zSLUpXI7qrRQRXti9ZiEZAIcWr/zjNpRSVoW1
+    ds1JMnOylAu/9hojZS/FHsnR/YZ6+1OCyLilTiYBSxey3e57D+IWY5eEjwoi4Jsd
+    Gb0rUP1TO7hUgQ==
     -----END CERTIFICATE-----
   etcd-peers-ca-main: |
     -----BEGIN CERTIFICATE-----
-    MIIDAjCCAeqgAwIBAgIMGKBte2M8A28VJWqzMA0GCSqGSIb3DQEBCwUAMB0xGzAZ
-    BgNVBAMTEmV0Y2QtcGVlcnMtY2EtbWFpbjAeFw0yNjAzMjQxNTIzNTBaFw0zNjAz
-    MjMxNTIzNTBaMB0xGzAZBgNVBAMTEmV0Y2QtcGVlcnMtY2EtbWFpbjCCASIwDQYJ
-    KoZIhvcNAQEBBQADggEPADCCAQoCggEBAKZBCFPkVC3h2ttCDEnBYicbEp1QGzAr
-    /9dSIJ7GMndSEeenQ+iNhGQ8ksApPAPQAprSJF9ymAztNemnrw9ImLi8WdyREeKY
-    1Ah8E+DZZTAf18ViVD0xML6pKZHsGh9udVrNi6/g58HkkLhJTZLtRfKa7CRRV3ux
-    8NVF2HycKD1IFgOVlt0VrIEnO6dnYbUJzLi2x+8IJh0H67iA0hsIZNZTLeF1SEgg
-    BFV+p0UMaL2bA99YoZzKY9S4MDRZo4uM5EFs3lXY7jDUXC/zUrEMKOOylQOcjmKB
-    CShG3GqL0OFsTFNmVfkTPRILB7BTIGo8+8sUa0/3ai7qqJh+CUgkhn8CAwEAAaNC
-    MEAwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFKFq
-    R9KyFjUpzOvJr08EU/a7zYunMA0GCSqGSIb3DQEBCwUAA4IBAQCCEI4Fr4ckbLyk
-    /+xSts/CsP4gTpm83CFh2epo5fLpp0lndE0c5joER3iBpOSAq5I8eE+wqaRWg0a5
-    If0dJUs7XLW4A+guQf3f3rG+9fV5fdC1n/oGxG1t8gl+SlaLSbyhuXj0bn0Yt6k+
-    b2gu0v4OJlr5OmzgIQUWe/iPVnSsfMXRu+unr3Y6i8dA73lSRO2yLqTITKfN01/t
-    CphtpGGo1f/9DNJw9iwwXQ/WhLBRBc/1fd+/KIXOEztwob7d9IPqg0pobr/aYgIx
-    MJ1BHSfueaQyl3FFV2ZouN6wyvTtrW6PAxEyqRsB374iRLABPYRameBwXLtjORD4
-    coBxqMnI
+    MIIDAjCCAeqgAwIBAgIMGKElqRFA/QGp9myeMA0GCSqGSIb3DQEBCwUAMB0xGzAZ
+    BgNVBAMTEmV0Y2QtcGVlcnMtY2EtbWFpbjAeFw0yNjAzMjYyMzM4NTZaFw0zNjAz
+    MjUyMzM4NTZaMB0xGzAZBgNVBAMTEmV0Y2QtcGVlcnMtY2EtbWFpbjCCASIwDQYJ
+    KoZIhvcNAQEBBQADggEPADCCAQoCggEBALahueMoSg7nM2c1KR6lM3A+Yh94oSjY
+    /Nn8tgb4WxMgiQLl5FV1El76K5xqUgthkLSsuBqvdFOe3F9P0IKqSYW9DY05fPs/
+    4liYQT2WMVMwRO6Y8swv/QME7wbxC2LzYGqHopW+tyhheg2eIKTTXzi3VuNTKIbJ
+    4CGVEf1NbikmWdbS7pksRc3dZa/CpVu/c94/KcJ4UHsJ73sP81vFyAIuu5jfCYMf
+    kI+AoAjkTO9JNPnZpwLhsuvgD8p3tpxJ40mR2thN9hED7TgJumIILznkrS40bjwP
+    smrG2hl4d4exBGRlKELI49MZTX8s8Kzn6TLjfhwET3MZKwUBHENYvBsCAwEAAaNC
+    MEAwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFABr
+    d98zTVMcDnWvp/vsdToV7U8MMA0GCSqGSIb3DQEBCwUAA4IBAQAInw1J1NWxrire
+    HnlTtjgOIcrTJ8QJ5NV6Do7KMlBGvkQ0uwMZ935DCpV3nJMIiNnmTsfYpZ+1ZUok
+    BJp1qXMVEXxrbV8u1t5tz+802aDH6UW9Voz9RziEjeqDGu2XtQgl5z/H6mhxEWAP
+    fAlkcp0OrFxeXruwZ91iaX2epWq7/9/bGDzPIJwRybn/kFlvUZmwyUCM2Z+771aB
+    WnBEbERvAjLh7zixUbdARQCqSyxu6Gj4X0BPUcELmJ0EvZslsTtLtZfp+jcWWVxh
+    sVn6nXNaUc4wZM5qHpesGmhBAfmW3TBDJU9Irhp+wHoflL5hQRIsP01W/8JxCbMY
+    F9/UuZx7
     -----END CERTIFICATE-----
   kubernetes-ca: |
     -----BEGIN CERTIFICATE-----
-    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
+    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
     -----END CERTIFICATE-----
 ClusterName: clusters.terra-hunter.com
 ControlPlaneConfig:
@@ -220,13 +220,13 @@ ControlPlaneConfig:
     clusterCIDR: 10.0.128.0/17
     clusterName: clusters.terra-hunter.com
     configureCloudRoutes: false
-    image: registry.k8s.io/kube-controller-manager:v1.35.2@sha256:d9784320a41dd1b155c0ad8fdb5823d60c475870f3dd23865edde36b585748f2
+    image: registry.k8s.io/kube-controller-manager:v1.35.3@sha256:23a24aafa10831eb47477b0b31a525ee8a4a99d2c17251aac46c43be8201ec59
     leaderElection:
       leaderElect: true
     logLevel: 2
     useServiceAccountCredentials: true
   KubeScheduler:
-    image: registry.k8s.io/kube-scheduler:v1.35.2@sha256:5833e2c4b779215efe7a48126c067de199e86aa5a86518693adeef16db0ff943
+    image: registry.k8s.io/kube-scheduler:v1.35.3@sha256:7070dff574916315268ab483f1088a107b1f3a8a1a87f3e3645933111ade7013
     leaderElection:
       leaderElect: true
     logLevel: 2
@@ -246,17 +246,17 @@ Hooks:
 - null
 - null
 KeypairIDs:
-  apiserver-aggregator-ca: "7621585380555035684388811571"
-  etcd-clients-ca: "7621585380643418903948891914"
-  etcd-manager-ca-events: "7621585380505352855415815058"
-  etcd-manager-ca-main: "7621585380733828200311116421"
-  etcd-peers-ca-events: "7621585380506998024269011674"
-  etcd-peers-ca-main: "7621585380897370258939407027"
-  kubernetes-ca: "7621585382741396931477770184"
-  service-account: "7621585382158014075620815099"
+  apiserver-aggregator-ca: "7622455138882232303505243934"
+  etcd-clients-ca: "7622455138794541094071276791"
+  etcd-manager-ca-events: "7622455138733813998485180245"
+  etcd-manager-ca-main: "7622455139052400414422845792"
+  etcd-peers-ca-events: "7622455138928827946011759692"
+  etcd-peers-ca-main: "7622455138973123261052120222"
+  kubernetes-ca: "7622455140213370040712740808"
+  service-account: "7622455140140339797583426453"
 KubeProxy:
   cpuRequest: 100m
-  image: registry.k8s.io/kube-proxy:v1.35.2@sha256:015265214cc874b593a7adccdcfe4ac15d2b8e9ae89881bdcd5bcb99d42e1862
+  image: registry.k8s.io/kube-proxy:v1.35.3@sha256:8743aec6a360aedcb7a076cbecea367b072abe1bfade2e2098650df502e2bc89
   logLevel: 2
 KubeletConfig:
   anonymousAuth: false
@@ -281,7 +281,7 @@ KubeletConfig:
   shutdownGracePeriodCriticalPods: 0s
   taints:
   - node-role.kubernetes.io/control-plane=:NoSchedule
-KubernetesVersion: 1.35.2
+KubernetesVersion: 1.35.3
 Networking:
   amazonVPC: {}
   nonMasqueradeCIDR: 10.0.0.0/16

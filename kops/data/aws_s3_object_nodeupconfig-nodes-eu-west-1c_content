@@ -1,13 +1,13 @@
 Assets:
   amd64:
-  - 20887f461c0de96b0cb14c7af6b897f92d424ac078f8642f98e83ef52a0bf03e@https://dl.k8s.io/release/v1.35.2/bin/linux/amd64/kubelet
-  - 924eb50779153f20cb668117d141440b95df2f325a64452d78dff9469145e277@https://dl.k8s.io/release/v1.35.2/bin/linux/amd64/kubectl
+  - 28d570423eaad5f1f5658a646bd8c015c786c95d62ffaf14bf35fa0c4326fa05@https://dl.k8s.io/release/v1.35.3/bin/linux/amd64/kubelet
+  - fd31c7d7129260e608f6faf92d5984c3267ad0b5ead3bced2fe125686e286ad6@https://dl.k8s.io/release/v1.35.3/bin/linux/amd64/kubectl
   - 7644623e4ec9ad443ab352a8a5800a5180ee28741288be805286ba72bb8e7164@https://artifacts.k8s.io/binaries/cloud-provider-aws/v1.31.7/linux/amd64/ecr-credential-provider-linux-amd64
   - 4793dc5c1f34ebf8402990d0050f3c294aa3c794cd5a4baa403c1cf10602326d@https://github.com/containerd/containerd/releases/download/v2.1.6/containerd-2.1.6-linux-amd64.tar.gz
   - 5966ca40b6187b30e33bfc299c5f1fe72e8c1aa01cf3fefdadf391668f47f103@https://github.com/opencontainers/runc/releases/download/v1.3.4/runc.amd64
   arm64:
-  - eaf11f9c20c385624775671662e127b083c9b5d0b451fd613f9468e09ca5656c@https://dl.k8s.io/release/v1.35.2/bin/linux/arm64/kubelet
-  - cd859449f54ad2cb05b491c490c13bb836cdd0886ae013c0aed3dd67ff747467@https://dl.k8s.io/release/v1.35.2/bin/linux/arm64/kubectl
+  - 58496a5d16d4316b18397735190d2d41e0c368169ecb458d91b09f4cd1e03c80@https://dl.k8s.io/release/v1.35.3/bin/linux/arm64/kubelet
+  - 6f0cd088a82dde5d5807122056069e2fac4ed447cc518efc055547ae46525f14@https://dl.k8s.io/release/v1.35.3/bin/linux/arm64/kubectl
   - 1980e3a038cb16da48a137743b31fb81de6c0b59fa06c206c2bc20ce0a52f849@https://artifacts.k8s.io/binaries/cloud-provider-aws/v1.31.7/linux/arm64/ecr-credential-provider-linux-arm64
   - 88d6e32348c36628c8500a630c6dd4b3cb8c680b1d18dc8d1d19041f67757c6e@https://github.com/containerd/containerd/releases/download/v2.1.6/containerd-2.1.6-linux-arm64.tar.gz
   - d6dcab36d1b6af1b72c7f0662e5fcf446a291271ba6006532b95c4144e19d428@https://github.com/opencontainers/runc/releases/download/v1.3.4/runc.arm64
@@ -18,10 +18,10 @@ Hooks:
 - null
 - null
 KeypairIDs:
-  kubernetes-ca: "7621585382741396931477770184"
+  kubernetes-ca: "7622455140213370040712740808"
 KubeProxy:
   cpuRequest: 100m
-  image: registry.k8s.io/kube-proxy:v1.35.2@sha256:015265214cc874b593a7adccdcfe4ac15d2b8e9ae89881bdcd5bcb99d42e1862
+  image: registry.k8s.io/kube-proxy:v1.35.3@sha256:8743aec6a360aedcb7a076cbecea367b072abe1bfade2e2098650df502e2bc89
   logLevel: 2
 KubeletConfig:
   anonymousAuth: false
@@ -40,7 +40,7 @@ KubeletConfig:
   protectKernelDefaults: true
   shutdownGracePeriod: 0s
   shutdownGracePeriodCriticalPods: 0s
-KubernetesVersion: 1.35.2
+KubernetesVersion: 1.35.3
 Networking:
   amazonVPC: {}
   nonMasqueradeCIDR: 10.0.0.0/16
