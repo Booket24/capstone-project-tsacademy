@@ -1,0 +1,243 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  name: clusters.terra-hunter.com
+spec:
+  api:
+    loadBalancer:
+      class: Network
+      type: Public
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudProvider: aws
+  configBase: s3://taskapp-hunter-kops-state/clusters.terra-hunter.com
+  dnsZone: clusters.terra-hunter.com
+  etcdClusters:
+  - cpuRequest: 200m
+    etcdMembers:
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1a
+      name: a
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1b
+      name: b
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1c
+      name: c
+    manager:
+      backupRetentionDays: 90
+    memoryRequest: 100Mi
+    name: main
+  - cpuRequest: 100m
+    etcdMembers:
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1a
+      name: a
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1b
+      name: b
+    - encryptedVolume: true
+      instanceGroup: control-plane-eu-west-1c
+      name: c
+    manager:
+      backupRetentionDays: 90
+    memoryRequest: 100Mi
+    name: events
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+    useServiceAccountExternalPermissions: true
+  kubeProxy:
+    enabled: false
+  kubelet:
+    anonymousAuth: false
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  - ::/0
+  kubernetesVersion: 1.35.3
+  masterPublicName: api.clusters.terra-hunter.com
+  networkCIDR: 10.0.0.0/16
+  networkID: vpc-077a71f727fd31e52
+  networking:
+    cilium:
+      enableNodePort: true
+  nonMasqueradeCIDR: 100.64.0.0/10
+  serviceAccountIssuerDiscovery:
+    discoveryStore: s3://taskapp-hunter-kops-state/clusters.terra-hunter.com/discovery
+    enableAWSOIDCProvider: true
+  sshAccess:
+  - 0.0.0.0/0
+  - ::/0
+  subnets:
+  - cidr: 10.0.101.0/24
+    id: subnet-0c228a86f4c911e54
+    name: eu-west-1a
+    type: Private
+    zone: eu-west-1a
+  - cidr: 10.0.102.0/24
+    id: subnet-0c5aec75c375d8441
+    name: eu-west-1b
+    type: Private
+    zone: eu-west-1b
+  - cidr: 10.0.103.0/24
+    id: subnet-023fc84fba676d4f5
+    name: eu-west-1c
+    type: Private
+    zone: eu-west-1c
+  - cidr: 10.0.1.0/24
+    id: subnet-02394814bb31260cc
+    name: utility-eu-west-1a
+    type: Utility
+    zone: eu-west-1a
+  - cidr: 10.0.2.0/24
+    id: subnet-0164002185466b925
+    name: utility-eu-west-1b
+    type: Utility
+    zone: eu-west-1b
+  - cidr: 10.0.3.0/24
+    id: subnet-0b09c123f23797711
+    name: utility-eu-west-1c
+    type: Utility
+    zone: eu-west-1c
+  topology:
+    bastion:
+      bastionPublicName: bastion.clusters.terra-hunter.com
+    dns:
+      type: Public
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: clusters.terra-hunter.com
+  name: control-plane-eu-west-1a
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20260218
+  machineType: t3a.medium
+  maxSize: 1
+  minSize: 1
+  role: Master
+  subnets:
+  - eu-west-1a
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: clusters.terra-hunter.com
+  name: control-plane-eu-west-1b
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20260218
+  machineType: t3a.medium
+  maxSize: 1
+  minSize: 1
+  role: Master
+  subnets:
+  - eu-west-1b
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: clusters.terra-hunter.com
+  name: control-plane-eu-west-1c
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20260218
+  machineType: t3a.medium
+  maxSize: 1
+  minSize: 1
+  role: Master
+  subnets:
+  - eu-west-1c
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: clusters.terra-hunter.com
+  name: nodes-eu-west-1a
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20260218
+  machineType: t3a.medium
+  MaxPrice: "0.025"
+  maxSize: 1
+  minSize: 1
+  role: Node
+  subnets:
+  - eu-west-1a
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: clusters.terra-hunter.com
+  name: nodes-eu-west-1b
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20260218
+  machineType: t3a.medium
+  maxPrice: "0.025"
+  maxSize: 1
+  minSize: 1
+  role: Node
+  subnets:
+  - eu-west-1b
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: clusters.terra-hunter.com
+  name: nodes-eu-west-1c
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20260218
+  machineType: t3a.medium
+  maxPrice: "0.025"
+  maxSize: 1
+  minSize: 1
+  role: Node
+  subnets:
+  - eu-west-1c
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: clusters.terra-hunter.com
+  name: bastions
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20260218
+  machineType: t3.micro
+  maxSize: 1
+  minSize: 1
+  role: Bastion
+  subnets:
+  - eu-west-1a
+  - eu-west-1b
+  - eu-west-1c
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: SSHCredential
+metadata:
+  labels:
+    kops.k8s.io/cluster: clusters.terra-hunter.com
+  name: admin
+spec:
+  publicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCv6ip4fgdbLiZvYH71WR2EZqff1d9L5Adtzqv/wQt6xgkYJsLitvv/TSJkG10QaOA2TMcX+pPbCNAA9YtXL6fzVWxLlh3Hn3oRhn5Pblydccw+2MLxA5/jOcGb0UAkhMtCfz3tTPrWrxYhJrY3B40b+Kl/oz6zdZBJ2DHGCx/JScOv1DDBlEoOFsU2nx4exdI/b76csfGwJCsOpKUKPssOMi/AFJ3beydog4pSTr8Nsr21CFxV8aHj37MJAJqljDhb2GTkibNj7D8Dpj0UkBFJhFRdYmi0gYsrMJVMHNdaEVHSUfqJ2Le2G2zaRqzNihI8h8uqi/ylhe/qCb2wYsg2YnS/WyzuzQluSP486M05vsoGFeXAkHCwzMiEk/gu/YBKJlvUSe+N1U3R7WBP8ILCvXyPkmgBLjZ1F/3lW2ZRcpfeiWMwI2+exNp4dx0NiFahDOg4EyeTbDqJIXL4PnNywfau4pSifxrWy7mQt4JgHciQtKJYe+peljKCGOYh9fGi0OASrc56W5AwwtyybQ/TJ4mRf9ksqkmcmZ73+BDi9mE4hvnQswr08Xa3We0QnNKyXBQINK3D2v0AkVtPl8qY4t2QehByTuRf2pqwiQjdyYnyzrMRBGzC9Ddij0vWk3wXtGOtUUHJmXeSVU88VdhoIynfSPXGexBH4EDNtPd4Hw==
+    mykaelhunter@ubuntu

@@ -8,8 +8,13 @@ variable "aws_region" {
   type        = string
 }
 
-variable "bucket_name" {
+variable "s3_bucket_name" {
   description = "S3 bucket for backend"
+  type = string
+}
+
+variable "kops_bucket_name" {
+  description = "S3 bucket for kops"
   type = string
 }
 

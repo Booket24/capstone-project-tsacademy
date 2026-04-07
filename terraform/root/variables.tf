@@ -34,35 +34,6 @@ variable "private_subnet_cidrs" {
   default        = ["10.0.2.0/24", "10.0.4.0/24", "10.0.6.0/24"]
 }
 
-variable "ssh_key_name" {
-  description = "SSH key pair name for EC2 instances "
-  type = string
-  default = "hunter" 
-}
-
-variable "db_name" {
-  description = "Application database name"
-  type        = string
-  default     = "taskapp"
-}
-
-variable "db_username" {
-  description = "Database master username"
-  type        = string
-  default     = "taskapp_user"
-}
-
-variable "db_password" {
-  description = "Database master password"
-  type        = string
-  sensitive   = true
-}
-
-variable "role_name" {
-  type        = string
-  description = "Name of the IAM role"
-  default = "taskapp-role"
-}
 
 variable "budget_name" {
   description = "The name of the budget"
@@ -88,10 +59,16 @@ variable "threshold" {
   default     = 80
 }
 
-variable "bucket_name" {
+variable "s3_bucket_name" {
   description = "S3 bucket for backend"
   type = string
   default = "taskapp-hunter-terraform-state"
+}
+
+variable "kops_bucket_name" {
+  description = "S3 bucket for kops"
+  type = string
+  default = "taskapp-hunter-kops-state"
 }
 
 variable "table_name" {

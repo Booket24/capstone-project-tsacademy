@@ -16,25 +16,6 @@ module "vpc" {
   private_subnet_cidrs = var.private_subnet_cidrs
 }
 
-module "RDS" {
-  source = "../modules/rds"
-
-  project_name = var.project_name
-  private_subnet_ids = module.vpc.private_subnet_ids
-  database_sg_id = module.vpc.database_sg_id
-
-  db_name = var.db_name
-  db_username = var.db_username
-  db_password = var.db_password 
-}
-
-module "iam" {
-  source    = "../modules/iam"
-
-  project_name = var.project_name
-  role_name = var.role_name
-}
-
 module "billing_alert" {
   source            = "../modules/billing"
   
@@ -47,8 +28,9 @@ module "billing_alert" {
 module "backend_storage" {
   source = "../modules/storage"
 
-project_name = var.project_name
-aws_region = var.aws_region
-  bucket_name = var.bucket_name
-  table_name = var.table_name
+ project_name = var.project_name
+ aws_region = var.aws_region
+ s3_bucket_name = var.s3_bucket_name
+kops_bucket_name = var.kops_bucket_name
+ table_name = var.table_name
 }

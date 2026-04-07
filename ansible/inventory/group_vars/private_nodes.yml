@@ -1,0 +1,6 @@
+ansible_user: ubuntu
+ansible_ssh_common_args: >
+  -o ProxyJump=ubuntu@<bastion-load-balancer-public-ip>
+  -o StrictHostKeyChecking=no
+  -o ControlMaster=auto
+  -o ControlPersist=60s
