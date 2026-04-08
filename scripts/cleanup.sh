@@ -2,7 +2,7 @@
 
 cd .. 
 
-cd /kops/terraform_route53
+cd kops/terraform_route53
 
 echo "Removing Roue53 CNAME Propagation"
 echo "Make sure you have the External IP of the ingress controller"
