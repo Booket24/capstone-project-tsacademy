@@ -11,6 +11,8 @@
 
  sleep 30s
 
+ echo ""
+
  echo "Starting database proviioning for the kops cluster"
 
  terraform init

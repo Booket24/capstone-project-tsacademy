@@ -10,13 +10,19 @@ echo "Gettting external IP of ingress controller"
 
 kubectl get svc -n ingress-nginx
 
+echo ""
+
 echo "Copy external IP for the route53 CNAME propagation"
+
+echo ""
 
 echo "Executing route53 CNAME propagation"
 
 terraform init
 terraform plan -out=path
 terraform apply "path"
+
+echo ""
 
 cd ..
 

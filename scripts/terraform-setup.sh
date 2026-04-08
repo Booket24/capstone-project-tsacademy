@@ -15,6 +15,8 @@ terraform plan -out=path
 
 terraform apply "path" 
 
+echo ""
+
 # Adding state locking 
 
 cd ..
@@ -24,6 +26,8 @@ cd ..
 mv misc/backend.ts terraform/root
 
 cd terraform/root
+
+sleep 15s
 
 echo "Applying backend for state locking"
 

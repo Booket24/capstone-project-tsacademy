@@ -1,37 +1,209 @@
-[Disclaimer] 
-Make sure you have edited out all the variables of the scripts before running
-There is always a message and a wait time for you to cancel if you havent done so
-Run all codes from the scripts directory
+# Runbook
 
-[Installation]
-a)Optional if you have not configured aws iam account for full kOps initialisation
-Edit the scripts/bash-iam-kops.sh file
-Replace the <your-username> with your iam username configured on your cli
-Run scripts/iam-kops.sh
+## Purpose
 
-[Start]
-Run scripts/terraform-setup.sh
+This runbook provides a step-by-step operational procedure for deploying and tearing down the TaskApp AWS production stack in this repository.
 
-Copy the vpc ID from the terraform output and edit the VPC-ID variable in the scripts/bash-kops-setup.sh file
-Copy the private subnets and paste them individually in the --subnet flag, seperating each with a comma and do the same for the public subnets in the --utility-subnet flag(also in the bash-kops-setup.sh
+## Prerequisites
 
-Run scripts/kops-setup.sh
+- AWS CLI configured with sufficient IAM permissions
+- `terraform` installed and available on `PATH`
+- `kubectl` installed and configured for kOps
+- `kops` installed and available on `PATH`
+- `helm` installed
+- A registered domain name delegated to Route53
+- SSH key pair available for cluster access
+- The repository checked out locally
+- Scripts marked executable (`chmod +x scripts/*.sh` if needed)
 
-Bonus: edit the cluster-config.yaml 
+## Project Location
 
-Run the scripts/kops-start.sh
+All deployment scripts are located in the `scripts/` directory. Run them from the repository root or from the `scripts/` directory using a shell.
 
-Run the scripts/database.sh
+## Deployment Order
 
-Run scripts/kubernetes.sh
+Follow this order exactly. Each step depends on the previous step's output.
 
-Run scripts/routing.sh
+### 1. Optional: IAM setup for kOps
 
-[Destruction]
+File: `scripts/iam-kops.sh`
 
-Follow the prompts
+- Replace `<your-username>` with your AWS CLI user name.
+- Run:
 
-Run scripts/cleanup.sh
+```bash
+cd scripts
+./iam-kops.sh
+```
+
+This script creates a `kops` IAM group and attaches the required AWS policies for kOps to manage EC2, VPC, S3, Route53, IAM, and related services.
+
+### 2. Provision core AWS infrastructure
+
+File: `scripts/terraform-setup.sh`
+
+- Run:
+
+```bash
+cd scripts
+./terraform-setup.sh
+```
+
+- Verify the output and record the following values:
+  - VPC ID
+  - public subnet IDs
+  - private subnet IDs
+
+- If Terraform prompts for variable values, provide them or create a `terraform.tfvars` file in `terraform/root/`.
+
+### 3. Configure kOps cluster
+
+File: `scripts/kops-setup.sh`
+
+- Open `scripts/kops-setup.sh` and update the placeholders:
+  - `NAME` → your cluster DNS name (must match Route53 domain)
+  - `KOPS_STATE_STORE` → your kOps state bucket (S3)
+  - `AWS_REGION` → your AWS region
+  - `VPC_ID` → the VPC ID from Terraform output
+  - `<private_subnet_1>,<private_subnet_2>,<private_subnet_3>` → private subnet IDs
+  - `<public_subnet_1>,<public_subnet_2>,<public_subnet_3>` → public subnet IDs
+
+- Run:
+
+```bash
+cd scripts
+./kops-setup.sh
+```
+
+- The script generates `kops/cluster-config.yaml` and may open it for manual review.
+
+### 4. Create the kOps cluster
+
+File: `scripts/kops-start.sh`
+
+- Run:
+
+```bash
+cd scripts
+./kops-start.sh
+```
+
+- Confirm cluster status with:
+
+```bash
+kubectl get nodes -o wide
+kops validate cluster --wait 15m
+```
+
+### 5. Provision the database
+
+File: `scripts/database.sh`
+
+- Review `kops/terraform_rds/variables.tf` and prepare values for:
+  - `db_password`
+  - `private_subnet_ids`
+
+- If needed, create a `terraform.tfvars` file in `kops/terraform_rds/` with the required values.
+
+- Run:
+
+```bash
+cd scripts
+./database.sh
+```
+
+### 6. Deploy Kubernetes services and application manifests
+
+File: `scripts/kubernetes.sh`
+
+- Open `scripts/kubernetes.sh` and update the placeholder values:
+  - `<iam_account_id>`
+  - `<s3_kops_bucket>`
+- Ensure `NAME` and `AWS_REGION` are exported before running the script, if they are referenced by the script environment.
+
+- Run:
+
+```bash
+cd scripts
+./kubernetes.sh
+```
+
+- Verify deployed resources:
+
+```bash
+kubectl get pods --all-namespaces
+kubectl get svc -n ingress-nginx
+kubectl get ingress
+```
+
+### 7. Configure Route53 and traffic routing
+
+File: `scripts/routing.sh`
+
+- Obtain the external DNS name or IP address of the NGINX ingress service:
+
+```bash
+kubectl get svc -n ingress-nginx
+```
+
+- Create a `kops/terraform_route53/terraform.tfvars` file containing:
+
+```hcl
+ingress_lb_dns_name = "<INGRESS_EXTERNAL_DNS>"
+```
+
+- Replace `terra-hunter.com.` in `kops/terraform_route53/route53.tf` with your Route53 hosted zone domain if needed.
+
+- Run:
+
+```bash
+cd scripts
+./routing.sh
+```
+
+- Apply ingress routing and TLS manifest:
+
+```bash
+kubectl apply -f k8s/routing.yaml
+```
+
+### 8. Validate the deployment
+
+- Confirm the application endpoints are available:
+  - `https://taskapp.<your-domain>`
+  - `https://api.<your-domain>`
+- Confirm certificate issuance and HTTPS routing.
+- Ensure backend pods have successfully started and are healthy.
+
+### 9. Teardown and cleanup
+
+File: `scripts/cleanup.sh`
+
+- Open `scripts/cleanup.sh` and update:
+  - `<your-kops-bucket-name>`
+  - ensure `${NAME}` is exported or set in the script environment
+
+- Run:
+
+```bash
+cd scripts
+./cleanup.sh
+```
+
+- This script destroys Route53 records, RDS resources, the kOps cluster, and Terraform-managed infrastructure.
+
+## Troubleshooting
+
+- If Terraform fails on `terraform init` or `terraform apply`, confirm AWS credentials and region configuration.
+- If kOps fails to create the cluster, confirm that the S3 state bucket exists and the `KOPS_STATE_STORE` path is correct.
+- If ingress resources do not become ready, inspect the NGINX controller logs with `kubectl logs -n ingress-nginx`.
+- If certificate issuance fails, confirm `cluster-issuer.yaml` and the cert-manager webhook installation succeeded.
+
+## Notes
+
+- The runbook assumes manual editing of placeholders and does not automate secret values.
+- All commands should be run from the `scripts/` directory with an appropriate shell.
+- Use `kubectl` and `kops` to validate cluster state after each major step.
 
 
 

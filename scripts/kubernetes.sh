@@ -6,6 +6,7 @@ echo "All variables must be edited in before running this script"
 echo "Variables are denoted by <>"
 sleep 30s
 
+echo ""
 cd ..
 
 # Adds audience for the oidc provider for token auth of secrets
@@ -16,10 +17,14 @@ cd k8s
 echo "Installing ingress controller"
 helm upgrade --install ingress-nginx ingress-nginx   --repo https://kubernetes.github.io/ingress-nginx   --namespace ingress-nginx --create-namespace
 
+echo ""
+
 echo "Installing cert manager for ssl encryption"
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 helm install cert-manager jetstack/cert-manager   --namespace cert-manager --create-namespace   --set crds.enabled=true
+
+echo ""
 
 echo "Installing CSI secrets driver for AWS secrets"
 # Install Driver
@@ -28,27 +33,39 @@ helm install csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
 # Install AWS Provider
 kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
 
-
+echo ""
 
 # Applying Kubernets manifests
 
 echo "Deplying Cluster issuer manifest"
 kubectl apply -f cluster-issuer.yaml
 
+echo ""
+
 echo "Deploying Secret Provider Class"
 kubectl apply -f secretProviderClass.yaml
+
+echo ""
 
 echo "Deploying databse service account"
 kubectl apply -f service-account.yaml
 
+echo ""
+
 echo "Deploying secret store permissions"
 kubectl apply -f secretStore-perm.yaml
+
+echo ""
 
 echo "Enabling token requests for csi driver to oidc provider"
 helm upgrade csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver   --namespace kube-system   --set "tokenRequests[0].audience=sts.amazonaws.com"
 
+echo ""
+
 echo "Deploying backend"
 kubectl apply -f backendDeployment.yaml
+
+echo ""
 
 echo "Deploying frontend"
 kubectl apply -f frontendDeployment.yaml 
