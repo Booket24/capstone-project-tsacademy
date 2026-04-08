@@ -16,7 +16,7 @@ echo "Executing route53 CNAME propagation"
 
 terraform init
 terraform plan -out=path
-terraform apply
+terraform apply "path"
 
 cd ..
 
