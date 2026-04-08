@@ -7,25 +7,25 @@ Run all codes from the scripts directory
 a)Optional if you have not configured aws iam account for full kOps initialisation
 Edit the scripts/bash-iam-kops.sh file
 Replace the <your-username> with your iam username configured on your cli
-Run scripts/bash-iam-kops.sh
+Run scripts/iam-kops.sh
 
 [Start]
-Run scripts/bash-terraform-setup.sh
+Run scripts/terraform-setup.sh
 
 Copy the vpc ID from the terraform output and edit the VPC-ID variable in the scripts/bash-kops-setup.sh file
 Copy the private subnets and paste them individually in the --subnet flag, seperating each with a comma and do the same for the public subnets in the --utility-subnet flag(also in the bash-kops-setup.sh
 
-Run scripts/bash-kops-setup.sh
+Run scripts/kops-setup.sh
 
 Bonus: edit the cluster-config.yaml 
 
-Run the scripts/bash-kops-start.sh
+Run the scripts/kops-start.sh
 
-Run the scripts/bash-database.sh
+Run the scripts/database.sh
 
-Run scripts/bash-kubernetes.sh
+Run scripts/kubernetes.sh
 
-Rub scripts/bash-routing.sh
+Run scripts/routing.sh
 
 [Destruction]
 

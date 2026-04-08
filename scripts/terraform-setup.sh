@@ -26,7 +26,7 @@ mv misc/backend.ts terraform/root
 cd terraform/root
 
 echo "Applying backend for state locking"
-sleep 15s
+
 terraform init
 
 
