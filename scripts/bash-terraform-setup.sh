@@ -21,7 +21,7 @@ cd ..
 
 cd ..
 
-cp misc/backend.ts terraform/root
+mv misc/backend.ts terraform/root
 
 cd terraform/root
 

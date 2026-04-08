@@ -33,9 +33,6 @@ cd terraform/root
 echo "Deleting kops bucket"
 aws s3 rb ${KOPS_STATE_STORE} --force
 
-echo "Deleting AWS secret manager"
-aws secretsmanager delete-secret --secret-id project/capstone/database_credentials --force-delete-without-recovery
-
 echo "Destroying infrastructure"
 echo "State locking will be ignored"
 terraform destroy -lock=false

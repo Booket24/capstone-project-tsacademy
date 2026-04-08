@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 # Add Permissions for full kOps utilisation on AWS CLI
+echo "Make sure you have edited your username before running this script"
+sleep 30s
 
 echo "Creating kops group"
 aws iam create-group --group-name kops
