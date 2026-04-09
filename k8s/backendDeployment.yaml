@@ -15,7 +15,7 @@ spec:
       serviceAccountName: db-service-account
       containers:
       - name: backend
-        image: mykaelhunter/taskapp-hunter-backend:latest
+        image: mykaelhunter/taskapp-hunter-backend:v4
         ports:
         - containerPort: 5000
         resources:

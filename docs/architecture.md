@@ -121,10 +121,7 @@ Deployment follows this general order:
 
 The current repository implements the core AWS and Kubernetes architecture, but the following areas require additional work for a fully production-ready solution:
 
-- Automated etcd backup configuration for kOps is not fully defined.
 - Pod security admission is not explicitly enforced by manifest-level policies.
-- Immutable image tagging is not implemented; manifests currently use `latest` container tags.
-- Detailed cost and architecture justification documentation is not present in the repo.
 
 ## Notes
 
