@@ -14,6 +14,7 @@ The goal is to build a highly available, secure, scalable cluster with automated
 - Remote state backend in S3 with DynamoDB locking
 - Automatic etcd backups to S3
 - Modular Terraform for VPC, networking, storage, and billing alerts
+- Spot instances for cost savings
 - kOps-managed Kubernetes cluster with private topology and multi-AZ deployment
 - AWS RDS PostgreSQL database for the application data store
 - Ingress-based TLS routing via cert-manager and NGINX
@@ -45,6 +46,7 @@ The goal is to build a highly available, secure, scalable cluster with automated
 - Multi-master control plane and worker node provisioning
 - Remote Terraform state with S3 and DynamoDB locking
 - Remote etcd backups every 15mins by default
+- Spot instance worker nodes on deployment
 - Route53-managed DNS for application endpoints
 - Automated HTTPS using cert-manager
 - Secrets management through AWS secret integration

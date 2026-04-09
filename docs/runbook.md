@@ -76,6 +76,7 @@ cd scripts
 ```
 
 - The script generates `kops/cluster-config.yaml` and may open it for manual review.
+- Add the maxPrice variable to configure worker nodes as spot instances
 
 ### 4. Create the kOps cluster
 
