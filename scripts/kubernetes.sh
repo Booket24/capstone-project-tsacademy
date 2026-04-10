@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-STATE_STORE=<your-s3-bucket-name>
+STATE_STORE=<your-s3-kops-bucket-name>
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 AWS_REGION=<your-region>
 NAME=clusters.<yourdomain.com>

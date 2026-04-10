@@ -8,19 +8,19 @@ set -euo pipefail
 NAME=clusters.<yourdomain.com>
 
 # 2. The S3 bucket you created for Kops state (e.g., s3://my-kops-state-123)
-STATE_STORE=<your s3 bucket name>
+STATE_STORE=<your-s3-kops-bucket-name>
 
 # 3. Your AWS Region
 AWS_REGION=<your-region>
 
 # 4. Your VPC ID
-VPC_ID=<enter your provisioned VPC ID from the existing infra>
+VPC_ID=<enter-your-provisioned-VPC-ID-from-the-existing-infra>
 
 # 5. Your private subnets (comma-seperated)
-PRIVATE_SUBNETS=<enter your provisioned private subnet IDs from the existing infra>
+PRIVATE_SUBNETS=<enter-your-provisioned-private-subnet-IDs-from-the-existing-infra>
 
 # 6. Your public subnets (comma-seperated)
-PUBLIC_SUBNETS=<enter your provisioned public subnet IDs from the existing infra>
+PUBLIC_SUBNETS=<enter-your-provisioned-public-subnet-IDs-from-the-existing-infra>
 
 echo "Make sure you edit all the required variables before running this script"
 echo "Variables are denoted with <>"

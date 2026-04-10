@@ -3,7 +3,7 @@
 set -euo pipefail
 
 export NAME=clusters.<yourdomain.com>
-STATE_STORE=<your s3 bucket name>
+STATE_STORE=<your-s3-kops-bucket-name>
 export KOPS_STATE_STORE=s3://${STATE_STORE}
 
 echo "Make sure you edit all the required variables before running this script"
