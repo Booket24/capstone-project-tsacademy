@@ -5,9 +5,14 @@
 
  cd kops/terraform_rds
 
+ echo "You need to re-input your project name"
  echo "Make sure you have your database password ready"
- echo "VPC id is required"
+ echo "VPC ID is required"
  echo "Private subnet ids are required in a list of strings"
+ echo "AWS region is required"
+ echo "Cluster name is required"
+ echo "Account ID is required"
+ echo "Kops bucket name is required"
 
  sleep 30s
 

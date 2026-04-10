@@ -1,16 +1,22 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
-echo "All variables must be edited in before running this script"
-echo "Variables are denoted by <>"
+STATE_STORE=<your-s3-bucket-name>
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+AWS_REGION=<your-region>
+NAME=clusters.<yourdomain.com>
+
+echo "Make sure you edit all the required variables before running this script"
+echo "Variables are denoted with <>"
+
 sleep 30s
 
 echo ""
 cd ..
 
 # Adds audience for the oidc provider for token auth of secrets
-aws iam add-client-id-to-open-id-connect-provider   --client-id sts.amazonaws.com   --open-id-connect-provider-arn arn:aws:iam::<iam_account_id>:oidc-provider/<s3_kops_bucket>.s3.${AWS_REGION}.amazonaws.com/${NAME}/discovery
+aws iam add-client-id-to-open-id-connect-provider   --client-id sts.amazonaws.com   --open-id-connect-provider-arn arn:aws:iam::${ACCOUNT_ID}:oidc-provider/${STATE_STORE}.s3.${AWS_REGION}.amazonaws.com/${NAME}/discovery
 
 cd k8s
 

@@ -19,11 +19,11 @@ resource "aws_iam_role" "csi_role" {
     Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
-      Principal = { Federated = "arn:aws:iam::541645813504:oidc-provider/taskapp-hunter-kops-state.s3.eu-west-1.amazonaws.com/clusters.terra-hunter.com/discovery" }
+      Principal = { Federated = "arn:aws:iam::${var.account_id}:oidc-provider/${var.kops_bucket_name}.s3.${var.aws_region}.amazonaws.com/${var.cluster_name}/discovery" }
       Action = "sts:AssumeRoleWithWebIdentity"
       Condition = {
         StringEquals = {
-          "taskapp-hunter-kops-state.s3.eu-west-1.amazonaws.com/clusters.terra-hunter.com/discovery:sub": "system:serviceaccount:default:db-service-account"
+          "${var.kops_bucket_name}.s3.${var.aws_region}.amazonaws.com/${var.cluster_name}/discovery:sub": "system:serviceaccount:default:db-service-account"
         }
       }
     }]

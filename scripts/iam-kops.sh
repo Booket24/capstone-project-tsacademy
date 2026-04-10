@@ -1,8 +1,7 @@
 #!/bin/bash
-set -e
+
+USERNAME=$(aws sts get-caller-identity --query Arn --output text | cut -d '/' -f 2)
 # Add Permissions for full kOps utilisation on AWS CLI
-echo "Make sure you have edited your username before running this script"
-sleep 30s
 
 echo ""
 
@@ -23,4 +22,4 @@ aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEventBrid
 echo ""
 
 echo "Add existing user to kops group"
-aws iam add-user-to-group --user-name <your-username> --group-name kops
+aws iam add-user-to-group --user-name ${USERNAME} --group-name kops

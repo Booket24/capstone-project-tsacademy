@@ -28,7 +28,6 @@ Follow this order exactly. Each step depends on the previous step's output.
 
 File: `scripts/iam-kops.sh`
 
-- Replace `<your-username>` with your AWS CLI user name.
 - Run:
 
 ```bash
@@ -41,6 +40,8 @@ This script creates a `kops` IAM group and attaches the required AWS policies fo
 ### 2. Provision core AWS infrastructure
 
 File: `scripts/terraform-setup.sh`
+
+- Ensure you have a project name, it will define most of the variable names
 
 - Run:
 
@@ -62,11 +63,11 @@ File: `scripts/kops-setup.sh`
 
 - Open `scripts/kops-setup.sh` and update the placeholders:
   - `NAME` → your cluster DNS name (must match Route53 domain)
-  - `KOPS_STATE_STORE` → your kOps state bucket (S3)
+  - `STATE_STORE` → your kOps state bucket (S3)
   - `AWS_REGION` → your AWS region
   - `VPC_ID` → the VPC ID from Terraform output
-  - `<private_subnet_1>,<private_subnet_2>,<private_subnet_3>` → private subnet IDs
-  - `<public_subnet_1>,<public_subnet_2>,<public_subnet_3>` → public subnet IDs
+  - `PRIVATE_SUBNETS` → private subnet IDs
+  - `PUBLIC_SUBNETS` → public subnet IDs
 
 - Run:
 
@@ -82,6 +83,10 @@ cd scripts
 
 File: `scripts/kops-start.sh`
 
+- Open `scripts/kops-start.sd` and update the placeholders:
+  - `NAME` → your cluster DNS name (must match Route53 domain)
+  - `STATE_STORE` → your kOps state bucket (S3)
+
 - Run:
 
 ```bash
@@ -101,8 +106,14 @@ kops validate cluster --wait 15m
 File: `scripts/database.sh`
 
 - Review `kops/terraform_rds/variables.tf` and prepare values for:
+  - `project_name`
   - `db_password`
   - `private_subnet_ids`
+  - `aws_region`
+  - `account_id`
+  - `kops_bucket_name`
+  - `cluster_name`
+  - `vpc_id`
 
 - If needed, create a `terraform.tfvars` file in `kops/terraform_rds/` with the required values.
 
@@ -117,10 +128,7 @@ cd scripts
 
 File: `scripts/kubernetes.sh`
 
-- Open `scripts/kubernetes.sh` and update the placeholder values:
-  - `<iam_account_id>`
-  - `<s3_kops_bucket>`
-- Ensure `NAME` and `AWS_REGION` are exported before running the script, if they are referenced by the script environment.
+- Ensure `NAME`, `AWS_REGION`, `STATE_STORE` and `ACCOUNT_ID` are exported before running the script, if they are referenced by the script environment.
 
 - Run:
 
@@ -181,7 +189,7 @@ kubectl apply -f k8s/routing.yaml
 File: `scripts/cleanup.sh`
 
 - Open `scripts/cleanup.sh` and update:
-  - `<your-kops-bucket-name>`
+  - ensure `${STATE_STORE}` is exported or set in the script environment
   - ensure `${NAME}` is exported or set in the script environment
 
 - Run:

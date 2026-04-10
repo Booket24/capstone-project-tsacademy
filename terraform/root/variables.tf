@@ -1,7 +1,6 @@
 variable "project_name" {
   description = "Project name for tags"
   type        = string
-  default     = "taskapp-hunter"
 }
 
 variable "aws_region" {

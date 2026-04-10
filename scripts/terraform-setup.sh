@@ -2,6 +2,10 @@
 
 # Navigate to the terraform directory
 
+echo "Prepare a name for your project"
+
+echo ""
+
 cd ..
 
 cd terraform/root

@@ -1,9 +1,14 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
-echo "Edit all required variables in this script"
-echo "Variables are denoted by <>"
+export NAME=clusters.<yourdomain.com>
+STATE_STORE=<your s3 bucket name>
+export KOPS_STATE_STORE=s3://${STATE_STORE}
+
+echo "Make sure you edit all the required variables before running this script"
+echo "Variables are denoted with <>"
+
 sleep 30s
 
 echo ""
@@ -23,9 +28,14 @@ cd ..
 
 cd terraform_rds
 
-echo "Removing database and its dependencies"
-echo "Make sure you have database password and vpc id"
-echo "Make sure you have the private subnet ids as list of strings"
+ echo "You need to re-input your project name"
+ echo "Make sure you have your database password ready"
+ echo "VPC ID is required"
+ echo "Private subnet ids are required in a list of strings"
+ echo "AWS region is required"
+ echo "Cluster name is required"
+ echo "Account ID is required"
+ echo "Kops bucket name is required"
 sleep 30s
 terraform destroy
 
@@ -45,16 +55,16 @@ cd terraform/root
 echo "Deleting kops bucket"
 echo "Press q when you see the : prompt"
 aws s3api delete-objects \
-    --bucket <your-kops-bucket-name> \
+    --bucket ${STATE_STORE} \
     --delete "$(aws s3api list-object-versions \
-    --bucket <your-kops-bucket-name> \
+    --bucket ${STATE_STORE} \
     --output json \
     --query '{Objects: Versions[].{Key:Key,VersionId:VersionId}}')"
 
 aws s3api delete-objects \
-    --bucket <your-kops-bucket-name> \
+    --bucket ${STATE_STORE} \
     --delete "$(aws s3api list-object-versions \
-    --bucket <your-kops-bucket-name> \
+    --bucket ${STATE_STORE} \
     --output json \
     --query '{Objects: DeleteMarkers[].{Key:Key,VersionId:VersionId}}')"
 

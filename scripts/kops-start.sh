@@ -1,5 +1,16 @@
 #!/bin/bash
 
+set -euo pipefail
+
+export NAME=clusters.<yourdomain.com>
+STATE_STORE=<your s3 bucket name>
+export KOPS_STATE_STORE=s3://${STATE_STORE}
+
+echo "Make sure you edit all the required variables before running this script"
+echo "Variables are denoted with <>"
+
+sleep 30s
+
 cd ..
 
 cd kops
