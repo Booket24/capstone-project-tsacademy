@@ -3,9 +3,10 @@
 set -euo pipefail
 
 STATE_STORE=<your-s3-kops-bucket-name>
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 AWS_REGION=<your-region>
 NAME=clusters.<yourdomain.com>
+export EMAIL=<your-email>
 
 echo "Make sure you edit all the required variables before running this script"
 echo "Variables are denoted with <>"
@@ -44,7 +45,7 @@ echo ""
 # Applying Kubernets manifests
 
 echo "Deplying Cluster issuer manifest"
-kubectl apply -f cluster-issuer.yaml
+envsubst '$EMAIL' < cluster-issuer.yaml | kubectl apply -f -
 
 echo ""
 
@@ -54,7 +55,7 @@ kubectl apply -f secretProviderClass.yaml
 echo ""
 
 echo "Deploying databse service account"
-kubectl apply -f service-account.yaml
+envsubst '$ACCOUNT_ID' < service-account.yaml |kubectl apply -f -
 
 echo ""
 

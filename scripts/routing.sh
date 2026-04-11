@@ -1,5 +1,12 @@
 #!/bin/bash
 
+export DOMAIN=<your-parent-domain-name>
+
+echo "Make sure you edit all the required variables before running this script"
+echo "Variables are denoted with <>"
+
+sleep 30s
+
 cd ..
 
 cd kops/terraform_route53
@@ -32,4 +39,4 @@ cd k8s
 
 echo "Deploying routing manifest to apply ssl certificate"
 
-kubectl apply -f routing.yaml
+envsubst '$DOMAIN' < routing.yaml | kubectl apply -f -

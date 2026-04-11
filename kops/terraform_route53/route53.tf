@@ -1,6 +1,6 @@
 # The Hosted Zone you created in Phase 2
 data "aws_route53_zone" "selected" {
-  name         = "terra-hunter.com." # Replace with your actual domain
+  name         = var.domain_name # Replace with your actual domain
   private_zone = false
 }
 

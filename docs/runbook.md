@@ -11,6 +11,7 @@ This runbook provides a step-by-step operational procedure for deploying and tea
 - `kubectl` installed and configured for kOps
 - `kops` installed and available on `PATH`
 - `helm` installed
+- `gettext` installed
 - A registered domain name delegated to Route53
 - SSH key pair available for cluster access
 - The repository checked out locally
@@ -83,10 +84,10 @@ cd scripts
 
 File: `scripts/kops-start.sh`
 
-- Open `scripts/kops-start.sd` and update the placeholders:
+- Open `scripts/kops-start.sh` and update the placeholders:
   - `NAME` → your cluster DNS name (must match Route53 domain)
   - `STATE_STORE` → your kOps state bucket (S3)
-
+
 - Run:
 
 ```bash
@@ -108,7 +109,7 @@ File: `scripts/database.sh`
 - Review `kops/terraform_rds/variables.tf` and prepare values for:
   - `project_name`
   - `db_password`
-  - `private_subnet_ids`
+  - `private_subnet_ids` → It must be a list of strings
   - `aws_region`
   - `account_id`
   - `kops_bucket_name`
@@ -128,7 +129,8 @@ cd scripts
 
 File: `scripts/kubernetes.sh`
 
-- Ensure `NAME`, `AWS_REGION`, `STATE_STORE` and `ACCOUNT_ID` are exported before running the script, if they are referenced by the script environment.
+- Open `scripts/kubernetes.sh` and update the placeholders:
+  - Ensure `NAME`, `AWS_REGION`, `STATE_STORE`, `ACCOUNT_ID` and `EMAIL` are exported before running the script, if they are referenced by the script environment.
 
 - Run:
 
@@ -148,6 +150,10 @@ kubectl get ingress
 ### 7. Configure Route53 and traffic routing
 
 File: `scripts/routing.sh`
+
+- Open `scripts/routing.sh` and update the placeholders:
+  - `DOMAIN` → your parent domain name
+  - `domain_name` → your parent domain with a dot (eg. terra-hunter.com.)  
 
 - Obtain the external DNS name or IP address of the NGINX ingress service:
 
@@ -189,8 +195,8 @@ kubectl apply -f k8s/routing.yaml
 File: `scripts/cleanup.sh`
 
 - Open `scripts/cleanup.sh` and update:
-  - ensure `${STATE_STORE}` is exported or set in the script environment
-  - ensure `${NAME}` is exported or set in the script environment
+  - ensure `STATE_STORE` is exported or set in the script environment
+  - ensure `NAME` is exported or set in the script environment
 
 - Run:
 

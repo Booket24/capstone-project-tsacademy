@@ -67,10 +67,10 @@ The application is deployed using Kubernetes manifests in `k8s/`:
 
 - `frontendDeployment.yaml`
   - React frontend deployment and service
-  - 2 replicas
+  - 3 replicas
 - `backendDeployment.yaml`
   - Flask backend deployment and service
-  - 2 replicas
+  - 3 replicas
   - Resource requests and limits defined
   - Liveness and readiness probes configured
   - Secret material injected via CSI provider

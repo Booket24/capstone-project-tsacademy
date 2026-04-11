@@ -29,7 +29,7 @@ variable "aws_region" {
 }
 
 variable "private_subnet_ids" {
-  description = "List of private subnet IDs for the RDS subnet group"
+  description = "List of private subnet IDs for the RDS subnet group in a linear list of strings"
   type        = list(string)
 }
 
