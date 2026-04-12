@@ -7,6 +7,8 @@ export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 AWS_REGION=<your-region>
 NAME=clusters.<yourdomain.com>
 export EMAIL=<your-email>
+export FRONTEND_IMG=<your-frontend-image-from-registry>
+export BACKEND_IMG=<your-backend-image-from-registry>
 
 echo "Make sure you edit all the required variables before running this script"
 echo "Variables are denoted with <>"
@@ -70,9 +72,9 @@ helm upgrade csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
 echo ""
 
 echo "Deploying backend"
-kubectl apply -f backendDeployment.yaml
+envsubst '$BACKEND_IMG' < backendDeployment.yaml | kubectl apply -f -
 
 echo ""
 
 echo "Deploying frontend"
-kubectl apply -f frontendDeployment.yaml 
+envsubst '$FRONTEND_IMG' < frontendDeployment.yaml | kubectl apply -f -

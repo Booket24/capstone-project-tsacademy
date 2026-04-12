@@ -130,7 +130,7 @@ cd scripts
 File: `scripts/kubernetes.sh`
 
 - Open `scripts/kubernetes.sh` and update the placeholders:
-  - Ensure `NAME`, `AWS_REGION`, `STATE_STORE`, `ACCOUNT_ID` and `EMAIL` are exported before running the script, if they are referenced by the script environment.
+  - Ensure `NAME`, `AWS_REGION`, `STATE_STORE`, `ACCOUNT_ID`, `EMAIL`, `BACKEND_IMG` and `FRONTEND_IMG` are exported before running the script, if they are referenced by the script environment.
 
 - Run:
 

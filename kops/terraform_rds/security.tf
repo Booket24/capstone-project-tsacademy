@@ -4,7 +4,7 @@ data "aws_security_group" "kops_nodes" {
     name   = "group-name"
     # Kops usually names its node SG: nodes.<cluster-name>
     # Replace 'yourcluster.com' with your actual cluster name
-    values = ["nodes.clusters.terra-hunter.com"] 
+    values = ["nodes.${var.cluster_name}"] 
   }
   
   # Ensure it looks in the correct VPC

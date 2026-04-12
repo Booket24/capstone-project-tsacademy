@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: mykaelhunter/taskapp-hunter-frontend:v4
+        image: ${FRONTEND_IMG}
         ports:
         - containerPort: 80
 ---
