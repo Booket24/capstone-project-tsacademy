@@ -15,7 +15,7 @@ spec:
       serviceAccountName: db-service-account
       containers:
       - name: backend
-        image: s{BACKEND_IMG}
+        image: ${BACKEND_IMG}
         ports:
         - containerPort: 5000
         resources:
